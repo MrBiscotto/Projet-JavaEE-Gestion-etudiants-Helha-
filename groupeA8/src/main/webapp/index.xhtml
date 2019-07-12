@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+<meta charset="UTF-8" />
+	<title>Index</title>
+	
+	<link rel="shortcut icon" href="images/home.png"/>
+
+</h:head>
+
+<script>
+	$.blockUI.defaults.message = '<img src="https://i.pinimg.com/originals/f9/56/88/f95688dd1ac02f459fe016d141a67bd2.gif" />';
+	$.blockUI.defaults.css = {
+		padding : 0,
+		margin : 0,
+		width : '30%',
+		top : '25%',
+		left : '35%',
+		textAlign : 'center',
+		cursor : 'wait'
+	};
+</script>
+
+<h:body>
+
+
+
+	<ui:include src="include/menu.xhtml" />
+
+	<div class="container"
+		style="position: fixed; top: 55%; left: 50%; transform: translate(-50%, -50%);">
+		<b:jumbotron>
+		<h1 style="font-size:45px;">Bienvenue sur le service d'aide à la réussite</h1>
+			<p>
+				<h:graphicImage value="images/logo_helha.jpg"
+					style="width:250px;
+						height:100px;">
+				</h:graphicImage>
+			</p>
+
+
+			<h2>Département économique de Mons</h2>
+			
+
+			<ul style="list-style-type: square;">
+				<li>Section assistant de direction</li>
+				<li>Section comptabilité</li>
+				<li>Section informatique de gestion</li>
+			</ul>
+			
+			<hr/>
+
+			<h:form enctype="multipart/form-data">
+				<h:inputFile value="#{etudiantController.file}"
+					styleClass="btn btn-primary" style="width:30%"></h:inputFile>
+					<hr/>
+					
+				<b:commandButton action="#{etudiantController.save()}"
+					onclick="ajax:blockUIBean.waitFiveSeconds();" value="Charger"
+					styleClass="btn btn-success" ajax="false" style="width:30%" />
+					
+					
+				<b:growl id="growlMsg" globalOnly="true" placementFrom="bottom" 
+				         show-detail="true" show-summary="false" allowDismiss="true"
+				         delay="10000" escape="true" />
+				         
+			</h:form>
+			
+		</b:jumbotron>
+	</div>
+</h:body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+
+<h:head>
+	<meta charset="UTF-8" />
+	<title>Ajouter séminaire</title>
+
+<link rel="shortcut icon" href="images/ajouter.png"/>
+
+</h:head>
+ <h:body>
+
+	<ui:include src="include/menu.xhtml" />
+
+	<div class="container"
+		style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+		<b:jumbotron>
+			<h1 style="font-size: 40px">Ajouter un séminaire</h1>
+			<b:panel>
+				<h:form>
+
+					<h:outputLabel for="nameSemi">Nom du séminaire: </h:outputLabel>
+					<b:inputText type="text" id="nameSemi"
+						value="#{seminaireController.seminaire.nomSeminaire}"
+						required="true" requiredMessage="Entrer une donnée"/>
+					<b:message for="nameSemi" />
+
+					<b:dateTimePicker value="#{seminaireController.seminaire.date}"
+						format="DD-MM-YYYY" label="Date" icon-position="left" />
+
+
+					<h:commandButton value="Confirmer"
+						action="#{seminaireController.addSeminaire()}"
+						styleClass="btn btn-success btn-lg btn-block" />
+			
+				</h:form>
+			</b:panel>
+		</b:jumbotron>
+	</div>
+
+</h:body> </html>

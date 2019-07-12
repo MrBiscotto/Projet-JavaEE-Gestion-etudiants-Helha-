@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+<meta charset="UTF-8" />
+    <title>Afficher Etudiant</title>	
+</h:head>
+<h:body>
+
+	<ui:include src="include/menu.xhtml"/>
+	
+<div class="container">	
+   <h:form>
+	  <b:dataTable value="#{etudiantController.getEtudiantsSection(etudiantController.section)}"
+	               var="etudiant">
+	    <b:dataTableColumn value="#{etudiant.nom}" />
+	    <b:dataTableColumn value="#{etudiant.prenom}" />
+	    <b:dataTableColumn value="#{etudiant.classe}" />
+	    <b:dataTableColumn label="Présence séminaire">
+	    	#{seminaireController.getCountId(etudiant.id)} / #{seminaireController.getCountSeminaire(etudiant.section)}
+	    </b:dataTableColumn>
+	    
+	    <b:dataTableColumn label="Détails">
+			<b:commandButton value="Voir Détails" 
+			                    action="#{etudiantController.navDetailsEtudiant(etudiant)}"/>
+		</b:dataTableColumn>
+	  	<b:dataTableColumn label="Supprimer">
+			<b:commandButton value="Delete" iconAwesome="trash"
+			                    action="#{etudiantController.deleteEtudiant(etudiant)}"/>
+		</b:dataTableColumn>
+	  </b:dataTable>
+	</h:form>
+</div>
+
+</h:body>
+</html>

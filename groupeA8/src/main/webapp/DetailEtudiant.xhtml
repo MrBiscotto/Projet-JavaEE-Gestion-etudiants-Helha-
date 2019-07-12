@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+<h:head>
+	<meta charset="UTF-8" />
+	<title>Détails Etudiant</title>
+</h:head>
+<h:body>
+	<ui:include src="include/menu.xhtml" />
+	<div class="container"
+		style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+		<b:jumbotron>
+			<h1>#{etudiantController.etudiant.nom}
+				#{etudiantController.etudiant.prenom}</h1>
+			<h:form>
+				<div class="form-group">
+					<h:outputLabel>Nom : #{etudiantController.etudiant.nom}</h:outputLabel>
+				</div>
+				<div class="form-group">
+					<h:outputLabel>Prénom : #{etudiantController.etudiant.prenom}</h:outputLabel>
+				</div>
+				<div class="form-group">
+					<h:outputLabel>Section : #{etudiantController.etudiant.section}</h:outputLabel>
+				</div>
+				<div class="form-group">
+					<h:outputLabel>Classe : #{etudiantController.etudiant.classe}</h:outputLabel>
+				</div>
+
+				<div class="form-group">
+					<h:outputLabel
+						value="#{etudiantController.etudiant.coordonnees ? ' Coordonnées personnelles : accepte de diffuser' : ' Coordonnées personnelles : Not Ok'}"></h:outputLabel>
+				</div>
+				<div class="form-group">
+					<h:outputLabel
+						value="#{etudiantController.etudiant.photo ? 'Photo : accepte de diffuser' : 'Photo : Not Ok'}"></h:outputLabel>
+				</div>
+
+				<div class="form-group">
+					Séminaires
+					(#{seminaireController.getCountId(etudiantController.etudiant.id)}
+					/
+					#{seminaireController.getCountSeminaire(etudiantController.etudiant.section)})
+					:
+					<ui:repeat
+						value="#{seminaireController.getSeminairesId(etudiantController.etudiant.id)}"
+						var="seminaire">
+						<div>#{seminaire.nomSeminaire} (#{seminaire.date})</div>
+					</ui:repeat>
+				</div>
+
+			</h:form>
+		</b:jumbotron>
+	</div>
+</h:body>
+</html>

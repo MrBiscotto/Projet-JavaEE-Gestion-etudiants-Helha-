@@ -1,0 +1,46 @@
+package sessionejb;
+
+import java.util.List;
+
+import javax.ejb.EJB;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+
+import dao.DAOCours;
+import dao.DAOSeminaire;
+import entities.Cours;
+import entities.Seminaire;
+
+@Stateless
+@LocalBean
+public class GestionCoursEJB implements IGestionCoursEJBRemote{
+
+         @EJB
+        private DAOCours dao;
+        public GestionCoursEJB()
+        {
+
+        }
+
+        public List<Cours> selectAll() {
+            return dao.selectAll();
+        }
+
+        public Cours addCours(Cours u) {
+            if(u==null)                     
+            {
+                return null;
+            }
+            return dao.addCours(u);
+        }
+
+        public void deleteCours(Cours u)
+        {
+            dao.deleteCours(u);
+        }
+
+        public Cours getCours(int u) {
+            return dao.getCours(u);
+        }
+
+}

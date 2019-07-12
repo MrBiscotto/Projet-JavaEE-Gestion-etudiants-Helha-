@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui">
+	
+	
+<h:head>
+	<meta charset="UTF-8" />
+		<title>Ajouter séminaire</title>
+</h:head>
+
+ <h:body>
+
+	<ui:include src="include/menu.xhtml" />
+
+<b:panel>
+	<h:form>
+	  <b:dataTable value="#{etudiantController.getEtudiantsSection(seminaireController.section)}"
+	               var="etudiant">
+	               
+	    <b:dataTableColumn value="#{etudiant.id}" />
+	    <b:dataTableColumn value="#{etudiant.nom}" />
+	    <b:dataTableColumn value="#{etudiant.prenom}" />
+	  	<b:dataTableColumn>
+			<b:commandButton value="Ajouter" action="#{seminaireController.ajouterEtudiant(etudiant)}"/>
+		</b:dataTableColumn>
+	  </b:dataTable>
+	</h:form>
+</b:panel>
+
+</h:body> 
+</html>

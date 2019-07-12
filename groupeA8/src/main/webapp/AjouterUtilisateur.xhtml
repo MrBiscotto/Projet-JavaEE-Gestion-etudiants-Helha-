@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+
+
+<h:head>
+	<meta charset="UTF-8" />
+	<title>Ajouter utilisateur</title>
+
+<link rel="shortcut icon" href="images/ajouter.png"/>
+
+</h:head> 
+<h:body>
+
+	<ui:include src="include/menu.xhtml" />
+
+	<div class="container"
+		style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+		<b:jumbotron>
+			<h1 style="font-size: 40px">Ajouter un utilisateur</h1>
+			<b:panel>
+				<h:form>
+
+					<h:outputLabel for="name">Nom utilisateur: </h:outputLabel>
+					<b:inputText type="text" id="name"
+						value="#{utilisateurController.utilisateur.nom}" required="true"
+						requiredMessage="Veuillez entrer une donnée" />
+					<b:messages for="name" />
+
+					<br />
+
+					<h:outputLabel for="pwd">Mot de passe utilisateur: </h:outputLabel>
+					<b:inputText type="text" id="pwd" class="test"
+						value="#{utilisateurController.utilisateur.motDePasse}"
+						required="true" requiredMessage="Veuillez entrer une donnée" />
+					<b:messages for="pwd" />
+
+					<h:selectOneMenu
+						value="#{utilisateurController.utilisateur.permission}"
+						style="  height: 29px;overflow: hidden; width: 30%;">
+						<f:selectItem itemValue="ADMIN" itemLabel="ADMIN" />
+						<f:selectItem itemValue="INFOIG" itemLabel="INFOIG" />
+					</h:selectOneMenu>
+
+					<hr />
+
+					<h:commandButton value="Confirmer" id="submit"
+						action="#{utilisateurController.addUtilisateur()}"
+						styleClass="btn btn-success btn-lg btn-block" />
+						
+	               <b:growl id="growlMsg" globalOnly="true" placementFrom="top" for="submit"
+	    				show-detail="true" show-summary="false" allowDismiss="true"
+	    				delay="5000" escape="true" />
+						
+				</h:form>
+			</b:panel>
+		</b:jumbotron>
+	</div>
+
+</h:body> 
+</html>

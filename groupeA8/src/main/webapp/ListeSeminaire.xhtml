@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	>
+<h:head>
+<meta charset="UTF-8" />
+	<title>Liste des séminaires</title>
+	<f:metadata>
+	    <f:viewAction action="#{seminaireController.onPageLoad()}" />
+	</f:metadata>
+</h:head>
+<h:body>
+
+	<ui:include src="include/menu.xhtml" />
+
+
+	<h:form>
+		<b:dataTable value="#{seminaireController.getSeminairesSection(seminaireController.section)}" var="seminaire">
+			<b:dataTableColumn label="Nom du séminaire">
+      			<h:outputText value="#{seminaire.nomSeminaire}" />
+      		</b:dataTableColumn>
+      		<b:dataTableColumn label="Date">
+      			<h:outputText value="#{seminaire.date}" />
+      		</b:dataTableColumn>
+			<b:dataTableColumn label="Supprimer">
+				<b:commandButton value="Delete" iconAwesome="trash"
+					action="#{seminaireController.deleteSeminaire(seminaire)}" />
+			</b:dataTableColumn>
+			<b:dataTableColumn label="Ajouter un étudiant à un séminaire">
+				<b:commandButton value="Ajouter Etudiants"
+					action="#{seminaireController.navAjouterEtudiantSerminaire(seminaire)}" />
+			</b:dataTableColumn>
+		</b:dataTable>
+	</h:form>
+
+	<hr></hr>
+	
+	<h:form style=" margin-left:auto;margin-right:auto;width: 30%;height:70px">
+			<h:commandButton value="Créer un nouveau séminaire"
+				styleClass="btn btn-success btn-lg btn-block"
+				action="AjouterSeminaire.xhtml?faces-redirect=true"/>
+	</h:form>	
+
+</h:body>
+
+</html>
+
+
