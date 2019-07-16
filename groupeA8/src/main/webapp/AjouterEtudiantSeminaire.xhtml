@@ -26,7 +26,7 @@
 	    <b:dataTableColumn value="#{etudiant.nom}" />
 	    <b:dataTableColumn value="#{etudiant.prenom}" />
 	    
-	    <b:dataTableColumn value="#{seminaireController.test(etudiant)}" label="Ajouter ou supprimer">
+	    <b:dataTableColumn value="#{seminaireController.verifEtudiantInscrit(etudiant)}" label="Ajouter ou supprimer">
 			<b:commandButton value="Ajouter" action="#{seminaireController.ajouterEtudiant(etudiant)}" iconAwesome="plus" rendered="#{seminaireController.isVisibleAdd()}"/>
 			<b:commandButton value="Supprimer" action="#{seminaireController.supprimerEtudiant(etudiant)}" iconAwesome="trash" rendered="#{seminaireController.isVisibleDelete()}"/>
 		</b:dataTableColumn>

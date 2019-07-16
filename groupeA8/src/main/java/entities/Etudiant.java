@@ -134,15 +134,35 @@ import org.apache.poi.ss.usermodel.Row;
 				return true;
 			if (obj == null)
 				return false;
-			if (!(obj instanceof Etudiant))
+			if (getClass() != obj.getClass())
 				return false;
 			Etudiant other = (Etudiant) obj;
-			if (id == null) {
-				if (other.id != null)
+			if (classe == null) {
+				if (other.classe != null)
 					return false;
-			} else if (!id.equals(other.id))
+			} else if (!classe.equals(other.classe))
+				return false;
+			if (coordonnees != other.coordonnees)
+				return false;
+			if (nom == null) {
+				if (other.nom != null)
+					return false;
+			} else if (!nom.equals(other.nom))
+				return false;
+			if (photo != other.photo)
+				return false;
+			if (prenom == null) {
+				if (other.prenom != null)
+					return false;
+			} else if (!prenom.equals(other.prenom))
+				return false;
+			if (section == null) {
+				if (other.section != null)
+					return false;
+			} else if (!section.equals(other.section))
 				return false;
 			return true;
 		}
+
 	}
 

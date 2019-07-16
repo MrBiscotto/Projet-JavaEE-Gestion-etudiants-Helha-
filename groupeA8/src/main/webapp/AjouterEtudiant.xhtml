@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+
+
+<h:head>
+	<meta charset="UTF-8" />
+	<title>Ajouter étudiant</title>
+
+<link rel="shortcut icon" href="images/ajouter.png"/>
+
+    <f:metadata>
+    <f:viewAction action="#{utilisateurController.checkLogin}" />
+    <f:viewAction action="#{etudiantController.clearInput()}" />
+</f:metadata>
+
+</h:head> 
+<h:body>
+
+	<ui:include src="include/menu.xhtml" />
+
+	<div class="container"
+		style="margin-top:39%; margin-left:50%; top: 50%; left: 50%; transform: translate(-50%, -50%); display:block">
+		<b:jumbotron>
+			<h1 style="font-size: 40px">Ajouter un étudiant</h1>
+			<b:panel>
+				<h:form>
+
+					<h:outputLabel for="nom">Nom de l'étudiant : </h:outputLabel>
+					<b:inputText type="text" id="nom"
+						value="#{etudiantController.etudiant.nom}" required="true"
+						requiredMessage="Veuillez entrer un nom" />
+					<b:messages for="nom" />
+
+					<br />
+
+					<h:outputLabel for="prenom">Prénom de l'étudiant : </h:outputLabel>
+					<b:inputText type="text" id="prenom"
+						value="#{etudiantController.etudiant.prenom}"
+						required="true" requiredMessage="Veuillez entrer un prénom" />
+					<b:messages for="prenom" />
+
+					<br />
+					
+					<b:selectOneMenu value="#{etudiantController.etudiant.section}" style="height: 29px;overflow: hidden; width: 30%;" >
+						<f:selectItem itemValue="AD" itemLabel="Assistant de direction" />
+						<f:selectItem itemValue="IG" itemLabel="Informatique de gestion" />
+						<f:selectItem itemValue="CT" itemLabel="Comptabilité" />
+					</b:selectOneMenu>
+					
+					<br />
+
+					<h:outputLabel for="classe">Classe de l'étudiant : </h:outputLabel>
+					<b:inputText type="text" id="classe"
+						value="#{etudiantController.etudiant.classe}"
+						required="true" requiredMessage="Veuillez entrer une classe" />
+					<b:messages for="classe" />
+
+					<br />
+					
+				    <b:switch value="#{etudiantController.etudiant.coordonnees}" 
+		              label="Accepte de diffuser ses coordonnées"
+		              offText="Non"
+		              onText="Oui"
+		              offColor="success"
+		              onColor="info"/>
+		              
+		              <br />
+		              
+   				    <b:switch value="#{etudiantController.etudiant.photo}" 
+		              label="Accepte d'afficher sa photo"
+		              offText="Non"
+		              onText="Oui"
+		              offColor="success"
+		              onColor="info"/>
+					
+					<hr />
+
+					<h:commandButton value="Confirmer" id="submit" 
+						action="#{etudiantController.ajouterUnEtudiant()}"
+						styleClass="btn btn-success btn-lg btn-block" />
+						
+	               <b:growl id="growlMsg" globalOnly="true" placementFrom="top" for="submit"
+	    				show-detail="true" show-summary="false" allowDismiss="true"
+	    				delay="5000" escape="true" />
+						
+				</h:form>
+			</b:panel>
+		</b:jumbotron>
+	</div>
+
+</h:body> 
+</html>

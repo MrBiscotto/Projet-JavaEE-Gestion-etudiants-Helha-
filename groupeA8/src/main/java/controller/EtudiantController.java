@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import javax.servlet.http.Part;
 
@@ -36,6 +37,8 @@ public class EtudiantController implements Serializable {
 	 /**
 	 * 
 	 */
+	private boolean loadFile = false;
+	private String comboSection = null;
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private GestionEtudiantEJB gestionEtudiant;
@@ -92,9 +95,10 @@ public class EtudiantController implements Serializable {
 		return etudiants;
 	   }
 
-	public void deleteEtudiant(Etudiant etudiant) {
+	public String deleteEtudiant(Etudiant etudiant) {
 		   gestionEtudiant.deleteEtudiant(etudiant);
 		   etudiants = gestionEtudiant.selectAll();
+		   return "ListeEtudiant.xhtml?faces-redirect=true";
 	   }
 	   
 	 /*  public void updateSeminaire() {
@@ -111,7 +115,7 @@ public class EtudiantController implements Serializable {
 	}
 	   
 	private Part file; 
-	public String save() throws InvalidFormatException, EncryptedDocumentException, org.apache.poi.openxml4j.exceptions.InvalidFormatException, IOException {
+	public void save() throws InvalidFormatException, EncryptedDocumentException, org.apache.poi.openxml4j.exceptions.InvalidFormatException, IOException {
 		
 	        File cFile = new File(file.getSubmittedFileName());
 	        try {
@@ -133,15 +137,29 @@ public class EtudiantController implements Serializable {
 	        gestionEtudiant.deleteAll();
 	        etudiants.clear();
 	        
-	        etudiants = ExcelReader.getEtudiants(cFile);
-	        
-	        for(Etudiant e : etudiants) {
-	        	gestionEtudiant.addEtudiant(e);
+	        try {
+	        	etudiants = ExcelReader.getEtudiants(cFile);
+	        	
+		        for(Etudiant e : etudiants) {
+		        	gestionEtudiant.addEtudiant(e);
+		        }
+		        
+		        loadFile = true;
+	    		
+	        }catch(Exception e) {
+	        	loadFile = false;
 	        }
-	        
-			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La liste des étudiants a été ajoutée !", null));
-	        return null;
+	}
+	
+	public void messageLoadFile() {
+		if(loadFile) {
+    		FacesContext context = FacesContext.getCurrentInstance();
+    		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Liste ajoutée", null));
+		}else {
+    		FacesContext context = FacesContext.getCurrentInstance();
+    		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fichier non correct !", null));
+		}
+
 	}
 
 	public Part getFile() {
@@ -161,6 +179,8 @@ public class EtudiantController implements Serializable {
 		return "ListeEtudiant.xhtml?faces-redirect=true";
 	}
 	
+	
+	//Detail étudiant
 	public String ajouterNote() {
 		if(!note.getTexte().equals("")) {
 			note.setEtuId(etudiant.getId());
@@ -178,7 +198,35 @@ public class EtudiantController implements Serializable {
 		   notes = gestionNote.selectNotesEtu(etudiant.getId());
 		   return "DetailEtudiant.xhtml?faces-redirect=true";
 	}
+	//Detail étudiant
 	
+	
+	//Ajouter étudiant
+	public void clearInput() {
+		etudiant.setClasse(null);
+		etudiant.setCoordonnees(false);
+		etudiant.setPhoto(false);
+		etudiant.setNom(null);
+		etudiant.setPrenom(null);
+	}
+	
+    public void changeSection (ValueChangeEvent event) {
+        comboSection = event.getNewValue().toString();
+    }
+    
+   public String ajouterUnEtudiant() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		etudiant.setId(etudiant.getId()+1);
+	   if(!etudiants.contains(etudiant)) {
+		   	gestionEtudiant.addEtudiant(etudiant);
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Etudiant ajouté !", null));
+			context.getExternalContext().getFlash().setKeepMessages(true);
+		   return "ListeEtudiant.xhtml?faces-redirect=true";
+	   }
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cet étudiant existe déja !", null));
+	   return null;
+   }
+  //Ajouter étudiant
 
 
 }

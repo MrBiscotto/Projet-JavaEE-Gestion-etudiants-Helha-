@@ -79,9 +79,7 @@ public class DAOSeminaire implements Serializable {
 	    
 	    //Requête pour vérifier si l'étudiant est déja inscrit au séminaire
 	    public int etudiantInscrit(int idSec, int idEtu) {
-		   	 //Query query = em.createQuery("select count(u) from SEMINAIRE_ETUDIANT u where u.SEC_ID = :idSec and u.ETU_ID = :idEtu");
 		   	 Query query = em.createQuery("select count(u) from Seminaire u JOIN fetch u.etudiants p where u.id = :idSec AND p.id = :idEtu");
-		   	//SELECT p FROM Professor e JOIN e.phones p"
 			 query.setParameter("idSec", idSec);
 			 query.setParameter("idEtu", idEtu);
 			 return ((Number) query.getSingleResult()).intValue();

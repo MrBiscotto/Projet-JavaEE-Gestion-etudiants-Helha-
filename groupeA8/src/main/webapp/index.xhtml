@@ -27,6 +27,7 @@
 		textAlign : 'center',
 		cursor : 'wait'
 	};
+	$.blockUi.
 </script>
 
 <h:body>
@@ -62,10 +63,10 @@
 					<hr/>
 					
 				<b:commandButton action="#{etudiantController.save()}" tooltip="Charger le fichier choisit" tooltip-position="auto"
-					onclick="ajax:blockUIBean.waitFiveSeconds();" value="Charger"
-					styleClass="btn btn-success" ajax="false" style="width:30%" />
-					
-					
+					id="submit" onclick="ajax:blockUIBean.waitFiveSeconds();" value="Charger"
+					styleClass="btn btn-success" ajax="false" style="width:30%" >
+					  <f:ajax execute="submit" listener="#{etudiantController.messageLoadFile()}" />
+				</b:commandButton>
 				<b:growl id="growlMsg" globalOnly="true" placementFrom="bottom" 
 				         show-detail="true" show-summary="false" allowDismiss="true"
 				         delay="10000" escape="true" />

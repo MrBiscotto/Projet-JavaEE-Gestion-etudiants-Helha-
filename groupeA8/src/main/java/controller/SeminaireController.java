@@ -1,8 +1,16 @@
 package controller;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -46,10 +54,8 @@ public class SeminaireController implements Serializable{
     	return visibleDelete;
     }
 
-    public void test(Etudiant etu) {
-
+    public void verifEtudiantInscrit(Etudiant etu) {
     	int res = gestionSeminaire.etudiantInscrit(seminaire.getId(),etu.getId());
-    	int a = res;
     	if(res == 0) {
     		visibleAdd = true;
     		visibleDelete = false;
@@ -85,16 +91,25 @@ public class SeminaireController implements Serializable{
         seminaires = gestionSeminaire.selectAll();
     }
     
-    public String addSeminaire() {
-    	if(seminaire.getNomSeminaire() !="") {
-	    	seminaire.setSection(section);
-	        gestionSeminaire.addSemi(seminaire);
-	        return "ListeSeminaire.xhtml?face-redirect=true";
-    	}
-    	return null;
+    public String addSeminaire() throws ParseException {
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		DateFormat dateFormat = new SimpleDateFormat(
+	            "EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
+		dateFormat.parse(seminaire.getDate());
+		
+		String date = dateFormat.format("DD-MM-YYYY");
+		String dateFinal = date.format(date);
+		
+		seminaire.setDate(dateFinal);
+    	seminaire.setSection(section);
+        gestionSeminaire.addSemi(seminaire);
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Séminaire créé !", null));
+		context.getExternalContext().getFlash().setKeepMessages(true);
+        return "ListeSeminaire.xhtml?face-redirect=true";
     }
 
-    public void ajouterEtudiant(Etudiant e) {
+    public String ajouterEtudiant(Etudiant e) {
     	Etudiant tmpEtudiant = e;
     	tmpEtudiant.setId(e.getId());
     	seminaire.ajouterEtudiant(tmpEtudiant);
@@ -102,6 +117,7 @@ public class SeminaireController implements Serializable{
     	
     	FacesContext context = FacesContext.getCurrentInstance();
     	context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Etudiant ajouté au séminaire : " + seminaire.getNomSeminaire(), null));
+    	return "AjouterEtudiantSeminaire.xhtml?face-redirect=true";
     	
     }
     
@@ -140,6 +156,9 @@ public class SeminaireController implements Serializable{
 		return count;
 	}
 	
-	
+	public void clearNom() {
+		init();
+		seminaire.setNomSeminaire("");
+	}
 
 }

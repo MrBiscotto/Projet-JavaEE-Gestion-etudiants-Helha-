@@ -15,6 +15,7 @@
 
 <f:metadata>
     <f:viewAction action="#{utilisateurController.checkLogin}" />
+    <f:viewAction action="#{seminaireController.clearNom}" />
 </f:metadata>
 
 </h:head>
@@ -32,13 +33,15 @@
 					<h:outputLabel for="nameSemi">Nom du séminaire: </h:outputLabel>
 					<b:inputText type="text" id="nameSemi"
 						value="#{seminaireController.seminaire.nomSeminaire}"
-						required="true" requiredMessage="Entrer une donnée"/>
+						required="true" requiredMessage="Entrer un nom au séminaire"/>
 					<b:message for="nameSemi" />
 
-					<b:dateTimePicker value="#{seminaireController.seminaire.date}"
-						format="DD-MM-YYYY" label="Date" icon-position="left" />
+					<b:dateTimePicker value="#{seminaireController.seminaire.date}" id="date"
+						format="DD-MM-YYYY" label="Date" icon-position="left" 
+						required="true" requiredMessage="Entrer une date au séminaire"/>
+					<b:message for="date" />
 
-
+					<hr />
 					<h:commandButton value="Confirmer"
 						action="#{seminaireController.addSeminaire()}"
 						styleClass="btn btn-success btn-lg btn-block" />
@@ -48,4 +51,6 @@
 		</b:jumbotron>
 	</div>
 
-</h:body> </html>
+</h:body> 
+
+</html>

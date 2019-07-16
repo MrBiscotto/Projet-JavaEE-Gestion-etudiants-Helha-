@@ -23,7 +23,7 @@ public class DAOEtudiant implements Serializable {
     
     public List<Etudiant> selectAll()
     {
-        Query query= em.createNamedQuery("select e from Etudiant e");
+        Query query= em.createQuery("select e from Etudiant e");
         return (List<Etudiant>) query.getResultList();    
     }
     

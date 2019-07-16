@@ -9,6 +9,8 @@
 <meta charset="UTF-8" />
     <title>Afficher Etudiant</title>	
     
+      <link rel="shortcut icon" href="images/etudiant.png"/>
+    
     <f:metadata>
     <f:viewAction action="#{utilisateurController.checkLogin}" />
 </f:metadata>
@@ -18,7 +20,17 @@
 
 	<ui:include src="include/menu.xhtml"/>
 	
-<div class="container" style="margin-top:60px">	
+	<hr></hr>
+	
+		<h:form style=" margin-left:auto;margin-right:auto;width: 30%;height:70px ;margin-top:60px">
+			<h:commandButton value="Créer un nouvel étudiant"
+				styleClass="btn btn-success btn-lg btn-block"
+				action="AjouterEtudiant.xhtml?faces-redirect=true" />
+	</h:form>	
+	
+			<hr></hr>
+	
+<div class="container" >	
    <h:form>
 	  <b:dataTable value="#{etudiantController.getEtudiantsSection(etudiantController.section)}"
 	               var="etudiant" pdf="true">
@@ -30,7 +42,7 @@
 	    </b:dataTableColumn>
 	    
 	    <b:dataTableColumn label="Détails">
-			<b:commandButton value="Voir Détails" 
+			<b:commandButton value="Voir Détails" iconAwesome="info-circle" 
 			                    action="#{etudiantController.navDetailsEtudiant(etudiant)}"/>
 		</b:dataTableColumn>
 	  	<b:dataTableColumn label="Supprimer">
@@ -39,7 +51,12 @@
 		</b:dataTableColumn>
 	  </b:dataTable>
 	</h:form>
+	
 </div>
+
+    <b:growl id="growlMsg" globalOnly="true" placementFrom="top" for="add"
+		show-detail="true" show-summary="false" allowDismiss="true"
+		delay="5000" escape="true" />
 
 </h:body>
 </html>
