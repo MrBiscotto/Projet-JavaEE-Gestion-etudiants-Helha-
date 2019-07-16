@@ -33,7 +33,8 @@ public class DAOUtilisateur implements Serializable{
     {
 		//Hachage du mot de passe
         MessageDigest md = MessageDigest.getInstance("SHA-256");
-        md.update(u.getMotDePasse().getBytes());
+        String mdp = u.getMotDePasse() + u.getNom();
+        md.update(mdp.getBytes());
 
         byte byteData[] = md.digest();
 

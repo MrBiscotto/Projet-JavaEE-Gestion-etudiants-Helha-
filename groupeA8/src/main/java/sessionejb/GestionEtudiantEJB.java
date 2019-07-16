@@ -37,6 +37,10 @@ public class GestionEtudiantEJB implements IGestionEtudiantEJBRemote{
        dao.deleteEtudiant(u);
    }
    
+   public void deleteAll() {
+	   dao.deleteAll();
+   }
+   
   /* public Etudiant updateEtudiantSeminaire(Etudiant e) {
        if(e == null) return null;
  

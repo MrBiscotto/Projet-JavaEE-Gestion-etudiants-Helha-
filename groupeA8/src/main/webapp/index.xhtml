@@ -10,6 +10,10 @@
 	
 	<link rel="shortcut icon" href="images/home.png"/>
 
+<f:metadata>
+    <f:viewAction action="#{utilisateurController.checkLogin}" />
+</f:metadata>
+
 </h:head>
 
 <script>
@@ -26,8 +30,6 @@
 </script>
 
 <h:body>
-
-
 
 	<ui:include src="include/menu.xhtml" />
 
@@ -55,11 +57,11 @@
 			<hr/>
 
 			<h:form enctype="multipart/form-data">
-				<h:inputFile value="#{etudiantController.file}"
+				<h:inputFile value="#{etudiantController.file}" 
 					styleClass="btn btn-primary" style="width:30%"></h:inputFile>
 					<hr/>
 					
-				<b:commandButton action="#{etudiantController.save()}"
+				<b:commandButton action="#{etudiantController.save()}" tooltip="Charger le fichier choisit" tooltip-position="auto"
 					onclick="ajax:blockUIBean.waitFiveSeconds();" value="Charger"
 					styleClass="btn btn-success" ajax="false" style="width:30%" />
 					

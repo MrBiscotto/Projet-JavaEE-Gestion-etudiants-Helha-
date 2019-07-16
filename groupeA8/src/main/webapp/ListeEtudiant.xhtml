@@ -3,19 +3,25 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:b="http://bootsfaces.net/ui"
     xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
     xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 <meta charset="UTF-8" />
     <title>Afficher Etudiant</title>	
+    
+    <f:metadata>
+    <f:viewAction action="#{utilisateurController.checkLogin}" />
+</f:metadata>
+    
 </h:head>
 <h:body>
 
 	<ui:include src="include/menu.xhtml"/>
 	
-<div class="container">	
+<div class="container" style="margin-top:60px">	
    <h:form>
 	  <b:dataTable value="#{etudiantController.getEtudiantsSection(etudiantController.section)}"
-	               var="etudiant">
+	               var="etudiant" pdf="true">
 	    <b:dataTableColumn value="#{etudiant.nom}" />
 	    <b:dataTableColumn value="#{etudiant.prenom}" />
 	    <b:dataTableColumn value="#{etudiant.classe}" />

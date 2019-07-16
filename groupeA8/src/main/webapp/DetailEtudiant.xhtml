@@ -10,8 +10,9 @@
 </h:head>
 <h:body>
 	<ui:include src="include/menu.xhtml" />
+
 	<div class="container"
-		style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+		style="margin-top:33%; margin-left:50%; top: 50%; left: 50%; transform: translate(-50%, -50%);">
 		<b:jumbotron>
 			<h1>#{etudiantController.etudiant.nom}
 				#{etudiantController.etudiant.prenom}</h1>
@@ -50,9 +51,35 @@
 						<div>#{seminaire.nomSeminaire} (#{seminaire.date})</div>
 					</ui:repeat>
 				</div>
+				
+	
+	<b:dataTable value="#{etudiantController.getListNoteEtudiants()}"
+	               var="note" searching="false">
+	    <b:dataTableColumn value="#{note.id}" />
+	    <b:dataTableColumn value="#{note.texte}"/>
+	    <b:dataTableColumn label="Modifier note">
+			<b:commandButton value="Modifier"  iconAwesome="edit"/>
+		</b:dataTableColumn>
+	  	<b:dataTableColumn label="Supprimer note">
+			<b:commandButton value="Supprimer" iconAwesome="trash" action="#{etudiantController.supprimerNote(note)}"/>
+		</b:dataTableColumn>
+	  </b:dataTable>
 
-			</h:form>
-		</b:jumbotron>
+
+  <b:panelGrid columns="6" size="sm" >
+    <h:commandButton id="add" value="Ajouter une note" ajax="true" action="#{etudiantController.ajouterNote()}" styleClass="btn btn-success btn-lg btn-block" style="width:160px" />
+	<b:inputTextarea rows="2" value="#{etudiantController.noteEtudiant.texte}" fieldSize="lg" placeholder="Entrez une note ..." style="width:450px"/>
+  </b:panelGrid>
+</h:form>
+			
+</b:jumbotron>
+		
+	
 	</div>
+		
+    <b:growl id="growlMsg" globalOnly="true" placementFrom="top" for="add"
+	show-detail="true" show-summary="false" allowDismiss="true"
+	delay="5000" escape="true" />
+	
 </h:body>
 </html>

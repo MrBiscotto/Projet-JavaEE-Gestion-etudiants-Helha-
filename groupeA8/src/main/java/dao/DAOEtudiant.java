@@ -62,6 +62,11 @@ public class DAOEtudiant implements Serializable {
         query.executeUpdate();
     }
     
+    public void deleteAll() {
+    	Query query = em.createQuery("delete from Etudiant e where e.id >= 0 ");
+    	query.executeUpdate();
+    }
+    
     public void close()
     {
         em.clear();

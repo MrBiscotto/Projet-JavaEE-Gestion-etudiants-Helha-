@@ -2,6 +2,7 @@
 <html xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
 
@@ -11,6 +12,10 @@
 	<title>Ajouter séminaire</title>
 
 <link rel="shortcut icon" href="images/ajouter.png"/>
+
+<f:metadata>
+    <f:viewAction action="#{utilisateurController.checkLogin}" />
+</f:metadata>
 
 </h:head>
  <h:body>

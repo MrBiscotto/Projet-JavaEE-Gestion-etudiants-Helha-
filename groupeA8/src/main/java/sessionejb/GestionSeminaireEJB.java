@@ -61,6 +61,9 @@ public class GestionSeminaireEJB implements IGestionSeminaireEJBRemote {
 		 public long  getCountSeminaireSection(String section){
 			 return dao.getCountSeminaireSection(section);
 		 }
-		
 		 
+		 public int etudiantInscrit(int idSec,int idEtu) {
+			 return dao.etudiantInscrit(idSec, idEtu);
+		 }
+	 
 	}

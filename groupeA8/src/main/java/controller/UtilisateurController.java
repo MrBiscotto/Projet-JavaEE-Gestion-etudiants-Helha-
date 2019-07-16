@@ -26,12 +26,13 @@ public class UtilisateurController implements Serializable {
 	/**
 	 * 
 	 */
+	private static String perm = "what";
+	private static boolean login = false;
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private GestionUtilisateurEJB gestionUtilisateur;
 	private List<Utilisateur> utilisateurs;
 	private Utilisateur utilisateur;
-	private Utilisateur tmp;
 
 	public UtilisateurController() {
 
@@ -70,7 +71,8 @@ public class UtilisateurController implements Serializable {
 		
 			FacesContext context = FacesContext.getCurrentInstance();
 	        MessageDigest md = MessageDigest.getInstance("SHA-256");
-	        md.update(mdpUtil.getBytes());
+	        String mdp = mdpUtil + nomUtil;
+	        md.update(mdp.getBytes());
 
 	        byte byteData[] = md.digest();
 
@@ -85,11 +87,13 @@ public class UtilisateurController implements Serializable {
 				utilisateur = gestionUtilisateur.getUtilisateur(nomUtil, sb.toString());
 				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Connexion réussie !", null));
 				context.getExternalContext().getFlash().setKeepMessages(true);
+				login = true;
+				perm = utilisateur.getPermission();
 				return "index.xhtml?faces-redirect=true";
 			}
 	        
 	        utilisateur.setMotDePasse(mdpUtil);
-	        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, utilisateur.getMotDePasse() + "Connexion échouée ! (Mot de passe ou Nom d'utilisateur incorrect)", null));
+	        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Connexion échouée ! (Mot de passe ou Nom d'utilisateur incorrect)", null));
 	        return null;
 
 	}
@@ -130,6 +134,7 @@ public class UtilisateurController implements Serializable {
 		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Déconnexion effectuée !", null));
 		context.getExternalContext().getFlash().setKeepMessages(true);
 
+		login = false;
 		return "Connexion.xhtml?faces-redirect=true";
 	}
 
@@ -148,5 +153,25 @@ public class UtilisateurController implements Serializable {
 		return null;
 	} 
 	
+	//empêche d'utiliser les autres pages sans être connecté
+	public String checkLogin() {
+		
+		if(login == false) {
+			return "Connexion.xhtml?faces-redirect=true";
+		}
+		return null;
+	}
+	
+	public String checkAdminAdd() {
+
+		if(perm.equals("ADMIN")) {
+			return "AjouterUtilisateur.xhtml?faces-redirect=true";
+		}
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Accès réservé aux Admin !", null));
+		return null;
+		
+	}
 	
 }

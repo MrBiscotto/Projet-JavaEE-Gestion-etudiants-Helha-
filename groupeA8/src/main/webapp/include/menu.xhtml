@@ -3,7 +3,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:b="http://bootsfaces.net/ui">
 	<h:form>
-	<b:navBar brand="Helha" brandHref="index.xhtml" inverse="true">
+	<b:navBar brand="Helha" brandHref="index.xhtml" inverse="true" position="top" >
 		<b:navbarLinks>
 
 			<b:dropMenu value="Informatique de gestion">
@@ -27,7 +27,7 @@
 				<b:navLink value="Liste tutorat" href="ListeTutorat.xhtml"/>
 			</b:dropMenu>
 			
-			<b:navLink value="Ajouter utilisateur" href="AjouterUtilisateur.xhtml"/>
+			<b:navCommandLink value="Ajouter utilisateur" action="#{utilisateurController.checkAdminAdd()}"/>
 			<b:navLink value="A propos" href="APropos.xhtml"/>
 			<b:navCommandLink href="Connexion.xhtml" action="#{utilisateurController.deconnexion()}" value="Déconnexion" />
 

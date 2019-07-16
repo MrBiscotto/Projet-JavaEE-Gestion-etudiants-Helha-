@@ -9,6 +9,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -21,8 +22,11 @@ import org.apache.poi.EncryptedDocumentException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
 import entities.Etudiant;
+import entities.NoteEtudiant;
 import entities.Seminaire;
 import sessionejb.GestionEtudiantEJB;
+import sessionejb.GestionNoteEtudiantEJB;
+import sessionejb.GestionSeminaireEJB;
 import util.ExcelReader;
 
 @Named
@@ -34,15 +38,21 @@ public class EtudiantController implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@EJB
-	   private GestionEtudiantEJB gestionEtudiant;
-	   private List<Etudiant> etudiants = new ArrayList<Etudiant>();
-	   private Etudiant etudiant;
-	   private String section;
+	private GestionEtudiantEJB gestionEtudiant;
+	@EJB
+	private GestionNoteEtudiantEJB gestionNote;
+	private List<Etudiant> etudiants = new ArrayList<Etudiant>();
+	private List<NoteEtudiant> notes = new ArrayList<NoteEtudiant>();
+	private Etudiant etudiant;
+	private NoteEtudiant note;
+	private String section;
 	   
 	   public EtudiantController() {}
 	  
+	   @PostConstruct
 	   public void init() {
 	       etudiant = new Etudiant();
+	       note = new NoteEtudiant();
 	   }
 	   
 	   public Etudiant getEtudiant() {
@@ -55,20 +65,35 @@ public class EtudiantController implements Serializable {
 	   public void setEtudiant(Etudiant etudiant) {
 	       this.etudiant = etudiant;
 	   }
-
 	   
-	   public List<Etudiant> getEtudiants() {
+	   /*public List<Etudiant> getEtudiants() {
 		etudiants = gestionEtudiant.selectAll();
 		return etudiants;
+	   }*/
+	   
+	   public NoteEtudiant getNoteEtudiant() {
+	       if(note == null) {
+	           init();
+	       }
+	       return note;
+	   }
+
+	   public void setNoteEtudiant(NoteEtudiant note) {
+	       this.note = note;
 	   }
 	   
-	   public List<Etudiant> getEtudiantsSection(String section) {	
+	   public List<NoteEtudiant> getListNoteEtudiants() {
+		notes = gestionNote.selectNotesEtu(etudiant.getId());
+		return notes;
+	   }
+	   
+	   public List<Etudiant> getEtudiantsSection(String section) {
 		etudiants = gestionEtudiant.selectAllEtudiantSection(section);
 		return etudiants;
 	   }
 
 	public void deleteEtudiant(Etudiant etudiant) {
-		   gestionEtudiant.deleteEtudiant(etudiant);;
+		   gestionEtudiant.deleteEtudiant(etudiant);
 		   etudiants = gestionEtudiant.selectAll();
 	   }
 	   
@@ -102,10 +127,10 @@ public class EtudiantController implements Serializable {
 	            e.printStackTrace();
 	        }
 	        
-	        for(Etudiant e: etudiants) {
+	       /* for(Etudiant e: etudiants) {
 	        	gestionEtudiant.deleteEtudiant(e);
-	        	System.out.println("test " + e.toString());
-	        }
+	        }*/
+	        gestionEtudiant.deleteAll();
 	        etudiants.clear();
 	        
 	        etudiants = ExcelReader.getEtudiants(cFile);
@@ -135,6 +160,25 @@ public class EtudiantController implements Serializable {
 		this.section = section;
 		return "ListeEtudiant.xhtml?faces-redirect=true";
 	}
+	
+	public String ajouterNote() {
+		if(!note.getTexte().equals("")) {
+			note.setEtuId(etudiant.getId());
+			gestionNote.addNote(note);
+			note.setTexte(null);
+			return "DetailEtudiant.xhtml?faces-redirect=true";
+		}
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aucun texte n'a été entré !", null));
+		return null;
+	}
+	
+	public String supprimerNote(NoteEtudiant nu) {
+		   gestionNote.deleteNote(nu);
+		   notes = gestionNote.selectNotesEtu(etudiant.getId());
+		   return "DetailEtudiant.xhtml?faces-redirect=true";
+	}
+	
 
 
 }

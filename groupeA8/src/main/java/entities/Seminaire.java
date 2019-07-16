@@ -18,7 +18,6 @@ import javax.persistence.ManyToMany;
 @Entity
 public class Seminaire implements Serializable {
 
-
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "SEC_ID")

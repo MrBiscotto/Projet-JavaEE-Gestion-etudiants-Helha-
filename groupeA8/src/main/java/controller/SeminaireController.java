@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import com.sun.jdo.api.persistence.support.Transaction;
@@ -21,6 +23,8 @@ public class SeminaireController implements Serializable{
     /**
 	 * 
 	 */
+	private boolean visibleAdd = true;
+	private boolean visibleDelete = false;
 	private static final long serialVersionUID = 1L;
 	@EJB
     private GestionSeminaireEJB gestionSeminaire;
@@ -32,6 +36,27 @@ public class SeminaireController implements Serializable{
     
     public void init() {
         seminaire = new Seminaire();
+    }
+    
+    public boolean isVisibleAdd() {
+    	return visibleAdd;
+    }
+    
+    public boolean isVisibleDelete() {
+    	return visibleDelete;
+    }
+
+    public void test(Etudiant etu) {
+
+    	int res = gestionSeminaire.etudiantInscrit(seminaire.getId(),etu.getId());
+    	int a = res;
+    	if(res == 0) {
+    		visibleAdd = true;
+    		visibleDelete = false;
+    	}else {
+    		visibleDelete = true;
+    		visibleAdd = false;
+    	}
     }
     
     public Seminaire getSeminaire() {
@@ -71,10 +96,12 @@ public class SeminaireController implements Serializable{
 
     public void ajouterEtudiant(Etudiant e) {
     	Etudiant tmpEtudiant = e;
-    	System.out.println(tmpEtudiant.getId());
     	tmpEtudiant.setId(e.getId());
     	seminaire.ajouterEtudiant(tmpEtudiant);
     	gestionSeminaire.updateSeminaire(seminaire);
+    	
+    	FacesContext context = FacesContext.getCurrentInstance();
+    	context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Etudiant ajouté au séminaire : " + seminaire.getNomSeminaire(), null));
     	
     }
     

@@ -3,6 +3,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:b="http://bootsfaces.net/ui">
 	
@@ -16,7 +17,7 @@
 
 	<ui:include src="include/menu.xhtml" />
 
-<b:panel>
+<b:panel style="margin-top:60px">
 	<h:form>
 	  <b:dataTable value="#{etudiantController.getEtudiantsSection(seminaireController.section)}"
 	               var="etudiant">
@@ -24,12 +25,19 @@
 	    <b:dataTableColumn value="#{etudiant.id}" />
 	    <b:dataTableColumn value="#{etudiant.nom}" />
 	    <b:dataTableColumn value="#{etudiant.prenom}" />
-	  	<b:dataTableColumn>
-			<b:commandButton value="Ajouter" action="#{seminaireController.ajouterEtudiant(etudiant)}"/>
+	    
+	    <b:dataTableColumn value="#{seminaireController.test(etudiant)}" label="Ajouter ou supprimer">
+			<b:commandButton value="Ajouter" action="#{seminaireController.ajouterEtudiant(etudiant)}" iconAwesome="plus" rendered="#{seminaireController.isVisibleAdd()}"/>
+			<b:commandButton value="Supprimer" action="#{seminaireController.supprimerEtudiant(etudiant)}" iconAwesome="trash" rendered="#{seminaireController.isVisibleDelete()}"/>
 		</b:dataTableColumn>
+		
 	  </b:dataTable>
 	</h:form>
 </b:panel>
+
+               <b:growl id="growlMsg" for="submit" globalOnly="true" placementFrom="top"
+         				show-detail="true" show-summary="false" allowDismiss="true"
+         				delay="10000" escape="true" />
 
 </h:body> 
 </html>

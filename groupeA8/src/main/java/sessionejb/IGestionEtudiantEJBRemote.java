@@ -12,4 +12,5 @@ public interface IGestionEtudiantEJBRemote {
 	 List<Etudiant> selectAll();
 	 Etudiant addEtudiant(Etudiant e);
 	 void deleteEtudiant(Etudiant s);
+	 void deleteAll();
 }

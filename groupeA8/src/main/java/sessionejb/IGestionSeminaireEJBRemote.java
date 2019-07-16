@@ -10,5 +10,6 @@ import entities.Seminaire;
 public interface IGestionSeminaireEJBRemote {
     List<Seminaire> selectAll();
     Seminaire addSemi(Seminaire s);
+    int etudiantInscrit(int idSec,int idEtu);
     void deleteSemi(Seminaire s);
 }
