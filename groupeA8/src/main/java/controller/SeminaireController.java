@@ -94,14 +94,22 @@ public class SeminaireController implements Serializable{
     public String addSeminaire() throws ParseException {
 		FacesContext context = FacesContext.getCurrentInstance();
 		
-		DateFormat dateFormat = new SimpleDateFormat(
+		/*DateFormat dateFormat = new SimpleDateFormat(
 	            "EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
 		dateFormat.parse(seminaire.getDate());
 		
 		String date = dateFormat.format("DD-MM-YYYY");
-		String dateFinal = date.format(date);
+		String dateFinal = date.format(date);*/
 		
-		seminaire.setDate(dateFinal);
+		//seminaire.setDate(dateFinal);
+		
+		SimpleDateFormat formatnow = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.FRENCH);
+		SimpleDateFormat formatneeded=new SimpleDateFormat("YYYY-MM-dd");
+		Date date1 = formatnow.parse(seminaire.getDate());
+		String date2 = formatneeded.format(date1);
+		
+		seminaire.setDate(date2);
+		
     	seminaire.setSection(section);
         gestionSeminaire.addSemi(seminaire);
 		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Séminaire créé !", null));

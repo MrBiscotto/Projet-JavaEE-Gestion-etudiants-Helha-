@@ -9,6 +9,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -37,6 +38,7 @@ public class EtudiantController implements Serializable {
 	 /**
 	 * 
 	 */
+	private int tmpId = 0;
 	private boolean loadFile = false;
 	private String comboSection = null;
 	private static final long serialVersionUID = 1L;
@@ -216,7 +218,6 @@ public class EtudiantController implements Serializable {
     
    public String ajouterUnEtudiant() {
 		FacesContext context = FacesContext.getCurrentInstance();
-		etudiant.setId(etudiant.getId()+1);
 	   if(!etudiants.contains(etudiant)) {
 		   	gestionEtudiant.addEtudiant(etudiant);
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Etudiant ajouté !", null));
