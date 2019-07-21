@@ -1,11 +1,14 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
 @Entity
 public class NoteEtudiant implements Serializable{
@@ -14,15 +17,25 @@ public class NoteEtudiant implements Serializable{
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     private String texte;
+    private String date;
     private int etuId;
     
     public NoteEtudiant() {}
     
-    public NoteEtudiant(String texte, int etuId) {
+    public NoteEtudiant(String texte, int etuId,String date) {
     	super();
     	this.texte = texte;
     	this.etuId = etuId;
+    	this.date = date;
     }
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
 
 	public Integer getId() {
 		return id;

@@ -6,7 +6,9 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.ManagedBean;
@@ -98,6 +100,7 @@ public class EtudiantController implements Serializable {
 	   }
 
 	public String deleteEtudiant(Etudiant etudiant) {
+			//gestionNote.deleteNotesEtudiant((int)etudiant.getId());
 		   gestionEtudiant.deleteEtudiant(etudiant);
 		   etudiants = gestionEtudiant.selectAll();
 		   return "ListeEtudiant.xhtml?faces-redirect=true";
@@ -186,6 +189,9 @@ public class EtudiantController implements Serializable {
 	public String ajouterNote() {
 		if(!note.getTexte().equals("")) {
 			note.setEtuId(etudiant.getId());
+			SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy 'à' HH:mm:ss");
+			Date date = new Date(System.currentTimeMillis());
+			note.setDate(formatter.format(date));
 			gestionNote.addNote(note);
 			note.setTexte(null);
 			return "DetailEtudiant.xhtml?faces-redirect=true";
@@ -228,6 +234,17 @@ public class EtudiantController implements Serializable {
 	   return null;
    }
   //Ajouter étudiant
+   
+   public String modifierNote(NoteEtudiant n) {
+	   note.setId(n.getId());
+	   gestionNote.updateNote(note);
+	   note.setTexte(null);
+	   return "DetailEtudiant.xhtml?faces-redirect=true";
+   }
+   
+   public void getIdNote(NoteEtudiant n) {
+	   note.setId(n.getId());
+   }
 
 
 }

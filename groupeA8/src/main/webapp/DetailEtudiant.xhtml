@@ -60,8 +60,9 @@
 		               var="note" searching="false">
 		    <b:dataTableColumn value="#{note.id}" />
 		    <b:dataTableColumn value="#{note.texte}"/>
+		    <b:dataTableColumn label="Date d'ajout" value="#{note.date}"/>
 		    <b:dataTableColumn label="Modifier note">
-				<b:commandButton value="Modifier"  iconAwesome="edit"/>
+				<b:button value="Modifier"  iconAwesome="edit" onclick="$('.modalDialog').modal()" action="#{etudiantController.modifierNote(note)}"/>
 			</b:dataTableColumn>
 		  	<b:dataTableColumn label="Supprimer note">
 				<b:commandButton value="Supprimer" iconAwesome="trash" action="#{etudiantController.supprimerNote(note)}"/>
@@ -83,6 +84,30 @@
     <b:growl id="growlMsg" globalOnly="true" placementFrom="top" for="add"
 	show-detail="true" show-summary="false" allowDismiss="true"
 	delay="5000" escape="true" />
+	
+<h:form id="myFormID">
+  <b:modal id="dia" title="Modifier la note" styleClass="modalDialog"
+           closable="false"  close-on-escape="false" backdrop="false">
+           
+    			<h:outputLabel for="nom">Nom de la note : </h:outputLabel>
+					<b:inputText type="text" id="texte"
+						value="#{etudiantController.noteEtudiant.texte}" required="true"
+						requiredMessage="Veuillez entrer un texte" />
+					<b:messages for="texte" />
+
+					<br />
+
+    
+    <f:facet name="footer">
+      <b:button value="Fermer" dismiss="modal" />
+      <b:commandButton value="Enregistrer" look="primary"
+      			dismiss="modal" styleClass="btn btn-success" />
+    </f:facet>
+  </b:modal>
+</h:form>
+
+
+	
 	
 </h:body>
 </html>

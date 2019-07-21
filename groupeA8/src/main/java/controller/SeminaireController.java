@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -94,21 +95,17 @@ public class SeminaireController implements Serializable{
     public String addSeminaire() throws ParseException {
 		FacesContext context = FacesContext.getCurrentInstance();
 		
-		/*DateFormat dateFormat = new SimpleDateFormat(
-	            "EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
-		dateFormat.parse(seminaire.getDate());
+        // Transformation de la chaîne en date selon le format
+        DateTimeFormatter cestDateTimeFormatter = DateTimeFormatter
+                .ofPattern("EE MMM dd HH:mm:ss z yyyy",
+                Locale.ENGLISH);
+        LocalDateTime timestamp = LocalDateTime.parse(seminaire.getDate(), cestDateTimeFormatter);
+ 
+        // Formatage dans le nouveau format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE dd MMMM YYYY", Locale.FRANCE);
+        String resultat = formatter.format(timestamp);
 		
-		String date = dateFormat.format("DD-MM-YYYY");
-		String dateFinal = date.format(date);*/
-		
-		//seminaire.setDate(dateFinal);
-		
-		SimpleDateFormat formatnow = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.FRENCH);
-		SimpleDateFormat formatneeded=new SimpleDateFormat("YYYY-MM-dd");
-		Date date1 = formatnow.parse(seminaire.getDate());
-		String date2 = formatneeded.format(date1);
-		
-		seminaire.setDate(date2);
+		seminaire.setDate(resultat);
 		
     	seminaire.setSection(section);
         gestionSeminaire.addSemi(seminaire);

@@ -27,6 +27,7 @@
 		textAlign : 'center',
 		cursor : 'wait'
 	};
+	
 </script>
 
 <h:body>
@@ -57,12 +58,16 @@
 			<hr/>
 
 			<h:form enctype="multipart/form-data">
-				<h:inputFile value="#{etudiantController.file}" 
-					styleClass="btn btn-primary" style="width:30%"></h:inputFile>
-					<hr/>
+				<h:inputFile value="#{etudiantController.file}" id="file"
+					styleClass="btn btn-primary" style="width:30%" required="true" 
+					requiredMessage="Veuillez sélectionner un fichier" />
+						<b:messages for="file" />
+					<hr/>			
+
 					
 				<b:commandButton action="#{etudiantController.save()}" tooltip="Charger le fichier choisit" tooltip-position="auto"
-					id="submit" onclick="ajax:blockUIBean.waitFiveSeconds();" value="Charger"
+					id="submit" onclick="if (!confirm('Attention cette action supprimera l ensemble des étudiants !')) return false;ajax:blockUIBean.waitFiveSeconds();" 
+					value="Charger"
 					styleClass="btn btn-success" ajax="false" style="width:30%" />
 
 				<b:growl id="growlMsg" globalOnly="true" placementFrom="bottom" 
@@ -72,6 +77,8 @@
 			</h:form>
 			
 		</b:jumbotron>
+		
 	</div>
+	
 </h:body>
 </html>

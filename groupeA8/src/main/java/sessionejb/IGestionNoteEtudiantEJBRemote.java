@@ -12,4 +12,5 @@ public interface IGestionNoteEtudiantEJBRemote {
     NoteEtudiant addNote(NoteEtudiant s);
     NoteEtudiant updateNote(NoteEtudiant note);
     void deleteNote(NoteEtudiant s);
+    void deleteNotesEtudiant(int id);
 }

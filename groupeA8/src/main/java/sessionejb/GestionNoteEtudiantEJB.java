@@ -43,4 +43,12 @@ public class GestionNoteEtudiantEJB implements IGestionNoteEtudiantEJBRemote {
 		return dao.updateNote(note);
 	}
 
+	@Override
+	public void deleteNotesEtudiant(int id) {
+		// TODO Auto-generated method stub
+		dao.deleteNotesEtudiant(id);
+	}
+	
+
+
 }

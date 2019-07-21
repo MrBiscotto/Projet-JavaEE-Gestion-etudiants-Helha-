@@ -38,17 +38,5 @@
     	<param-name>BootsFaces_USETHEME</param-name>
     	<param-value>true</param-value>
   	</context-param>
-  	
-
-  	<servlet>
-	<servlet-name>Test</servlet-name>
-	<servlet-class>util.Test</servlet-class>
-</servlet>
-
-<servlet-mapping>
-	<servlet-name>Test</servlet-name>
-	<url-pattern>/ConnexionTest</url-pattern>
-</servlet-mapping>
-
 
 </web-app>

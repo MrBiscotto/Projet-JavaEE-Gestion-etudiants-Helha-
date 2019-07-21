@@ -26,6 +26,10 @@ public class GestionCoursEJB implements IGestionCoursEJBRemote{
             return dao.selectAll();
         }
 
+        public List<Cours> selectCoursSection(String idSection){
+        	return dao.selectCoursSection(idSection);
+        }
+        
         public Cours addCours(Cours u) {
             if(u==null)                     
             {

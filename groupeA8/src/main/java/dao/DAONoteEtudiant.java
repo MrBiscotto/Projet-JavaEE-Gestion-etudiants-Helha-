@@ -44,6 +44,12 @@ public class DAONoteEtudiant implements Serializable{
         query.setParameter("id", s.getId());
         query.executeUpdate();
     }
+    
+    public void deleteNotesEtudiant(int id) {
+        Query query = em.createQuery("DELETE FROM NoteEtudiant s WHERE s.etuid = :id ");
+        query.setParameter("id", id);
+        query.executeUpdate();
+    }
  	
     public void close()
     {

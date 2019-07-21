@@ -21,16 +21,16 @@
         <h:form id="test">
         <h1>Connexion</h1>
             <div class="form-group">
-                <h:outputLabel for="utilisateur">Nom d'utilisateur :</h:outputLabel>
-                <b:inputText type="text" styleClass="form-control" id="uti"
+                <h:outputLabel for="j_username">Nom d'utilisateur :</h:outputLabel>
+                <b:inputText type="text" styleClass="form-control" id="j_username"
                     value="#{utilisateurController.utilisateur.nom}" required="true" requiredMessage="Entrer un nom d'utilisateur"/>
-                    <b:message for="uti"></b:message>
+                    <b:message for="j_username"></b:message>
             </div>
             <div class="form-group">
-                <h:outputLabel for="mdp">Mot de passe :</h:outputLabel>
-                <b:inputSecret type="password" styleClass="form-control" id="mdp"
+                <h:outputLabel for="j_password">Mot de passe :</h:outputLabel>
+                <b:inputSecret type="password" styleClass="form-control" id="j_password"
                     value="#{utilisateurController.utilisateur.motDePasse}" required="true" requiredMessage="Entrer un mot de passe"/>
-					 <b:message for="mdp"></b:message>
+					 <b:message for="j_password"></b:message>
                 
             </div>
             <h:commandButton styleClass="btn btn-success" value="Se connecter" id="submit"
