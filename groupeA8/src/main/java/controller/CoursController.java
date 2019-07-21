@@ -91,6 +91,11 @@ public class CoursController implements Serializable{
 		return null;
 
    }
+   
+   public String navAjouterTutorat(Cours c) {
+	   cours = c;
+	   return "AjouterTutorat.xhtml?face-redirect=true";
+   }
 
    
 	public void clearNom() {

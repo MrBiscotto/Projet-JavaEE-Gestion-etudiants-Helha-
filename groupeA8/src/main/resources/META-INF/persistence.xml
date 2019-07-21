@@ -23,6 +23,7 @@
     		<class>entities.Utilisateur</class>
     		<class>entities.Etudiant</class>
     		<class>entities.NoteEtudiant</class>
+    		<class>entities.Tutorat</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 		
 		

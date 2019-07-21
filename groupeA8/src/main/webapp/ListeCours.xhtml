@@ -47,7 +47,8 @@
 								 action="#{coursController.deleteCours(cours)}"/>
 			</b:dataTableColumn>
 			<b:dataTableColumn label="Ajouter un tutorat à un étudiant">
-				<b:commandButton value="Ajouter Etudiants"  iconAwesome="plus" />
+				<b:commandButton value="Ajouter Etudiants"  iconAwesome="plus"
+							     action="#{coursController.navAjouterTutorat(cours)}" />
 			</b:dataTableColumn>
 		</b:dataTable>
 	</h:form>
