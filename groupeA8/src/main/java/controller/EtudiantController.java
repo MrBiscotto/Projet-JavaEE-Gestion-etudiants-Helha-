@@ -100,7 +100,7 @@ public class EtudiantController implements Serializable {
 	   }
 
 	public String deleteEtudiant(Etudiant etudiant) {
-			//gestionNote.deleteNotesEtudiant((int)etudiant.getId());
+			gestionNote.deleteNotesEtudiant(etudiant.getId());
 		   gestionEtudiant.deleteEtudiant(etudiant);
 		   etudiants = gestionEtudiant.selectAll();
 		   return "ListeEtudiant.xhtml?faces-redirect=true";
