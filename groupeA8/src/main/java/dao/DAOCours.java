@@ -47,7 +47,7 @@ public class DAOCours {
             query.setParameter("id", idCours);
             return (Cours) query.getSingleResult();
         }
-        
+
 
         public void deleteCours(Cours p)
         {

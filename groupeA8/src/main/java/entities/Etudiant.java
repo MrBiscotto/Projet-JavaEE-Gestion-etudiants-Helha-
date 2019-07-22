@@ -140,26 +140,26 @@ import org.apache.poi.ss.usermodel.Row;
 			if (classe == null) {
 				if (other.classe != null)
 					return false;
-			} else if (!classe.equals(other.classe))
+			} else if (!classe.toUpperCase().equals(other.classe.toUpperCase()))
 				return false;
 			if (coordonnees != other.coordonnees)
 				return false;
 			if (nom == null) {
 				if (other.nom != null)
 					return false;
-			} else if (!nom.equals(other.nom))
+			} else if (!nom.toUpperCase().equals(other.nom.toUpperCase()))
 				return false;
 			if (photo != other.photo)
 				return false;
 			if (prenom == null) {
 				if (other.prenom != null)
 					return false;
-			} else if (!prenom.equals(other.prenom))
+			} else if (!prenom.toUpperCase().equals(other.prenom.toUpperCase()))
 				return false;
 			if (section == null) {
 				if (other.section != null)
 					return false;
-			} else if (!section.equals(other.section))
+			} else if (!section.toUpperCase().equals(other.section.toUpperCase()))
 				return false;
 			return true;
 		}

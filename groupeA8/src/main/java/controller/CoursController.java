@@ -15,7 +15,9 @@ import javax.inject.Named;
 
 import entities.Cours;
 import entities.Etudiant;
+import entities.Tutorat;
 import sessionejb.GestionCoursEJB;
+import sessionejb.GestionTutoratEJB;
 
 @Named
 @SessionScoped
@@ -25,16 +27,23 @@ public class CoursController implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private int idCours= 0;
+	private boolean visibleAdd = true;
+	private boolean visibleDelete = false;
 	@EJB
    private GestionCoursEJB gestionCours;
+	@EJB
+   private GestionTutoratEJB gestionTutorat;
    private List<Cours> listeCours = new ArrayList<Cours>();
    private Cours cours;
+   private Tutorat tutorat;
    private String section; 
    
    public CoursController() {}
    
    public void init() {
        cours = new Cours();
+       tutorat = new Tutorat();
    }
    
    public Cours getCours() {
@@ -42,6 +51,25 @@ public class CoursController implements Serializable{
            init();
        }
        return cours;
+   }
+   
+   public Tutorat getTutorat() {
+       if(tutorat == null) {
+           init();
+       }
+       return tutorat;
+   }
+   
+   public boolean isVisibleAdd() {
+   		return visibleAdd;
+   }
+   
+   public void setIdCours(int id) {
+	   this.idCours = id;
+   }
+   
+   public boolean isVisibleDelete() {
+   		return visibleDelete;
    }
    
 	public String getSection() {
@@ -61,10 +89,11 @@ public class CoursController implements Serializable{
        listeCours = gestionCours.selectCoursSection(section);
        return listeCours;
    }
-   
+      
    public String deleteCours(Cours c) {
 	   FacesContext context = FacesContext.getCurrentInstance();
        gestionCours.deleteCours(c);
+       gestionTutorat.deleteTutoratCours(c.getId());
        listeCours.remove(c);
        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Cours supprimé !", null));
        return "ListeCours.xhtml?face-redirect=true";
@@ -92,11 +121,54 @@ public class CoursController implements Serializable{
 
    }
    
-   public String navAjouterTutorat(Cours c) {
-	   cours = c;
-	   return "AjouterTutorat.xhtml?face-redirect=true";
+   public void verifEtudiantInscrit(Etudiant etu) {
+
+   	int res = gestionTutorat.etudiantInscrit(etu.getSection(),etu.getId(),cours.getId());
+   	if(res == 0) {
+   		visibleAdd = true;
+   		visibleDelete = false;
+   	}else {
+   		visibleDelete = true;
+   		visibleAdd = false;
+   	}
    }
 
+   
+   public String deleteTutorat(Etudiant e) {
+	   FacesContext context = FacesContext.getCurrentInstance();
+	   
+	   tutorat = new Tutorat();
+	   tutorat.setEtuId(e.getId());
+	   tutorat.setIdCours(cours.getId());
+	   
+	   gestionTutorat.deleteTutorat(tutorat);
+	   
+       context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Tutorat annulé pour " + e.getNom() + " " + e.getPrenom(), null));
+       return "AjouterTutoratEtudiant.xhtml?face-redirect=true";
+   }
+   
+
+   public String addTutorat(Etudiant e) {
+		FacesContext context = FacesContext.getCurrentInstance();
+
+		tutorat = new Tutorat();
+		tutorat.setIdCours(cours.getId());
+		tutorat.setNom(cours.getNom());
+		tutorat.setSection(e.getSection());
+		tutorat.setEtuId(e.getId());
+		
+		gestionTutorat.addTutorat(tutorat);
+		
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Tutorat ajouté pour " + e.getNom() + " " + e.getPrenom(), null));
+
+		return "AjouterTutoratEtudiant.xhtml?face-redirect=true";
+   }
+   
+   public String navAjouterTutorat(Cours c) {
+	   cours = c;
+	   section = c.getSection();
+	   return "AjouterTutoratEtudiant.xhtml?face-redirect=true";
+   }
    
 	public void clearNom() {
 		init();

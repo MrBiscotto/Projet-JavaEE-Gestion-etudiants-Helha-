@@ -77,6 +77,13 @@ public class DAOSeminaire implements Serializable {
 	        query.executeUpdate();
 	    }
 	    
+	    public void deleteSemiEtudiant(String idSec, int idEtu) {
+		   	 Query query = em.createQuery("Delete from Seminaire u JOIN fetch u.etudiants p where u.id = :idSec AND p.id = :idEtu");
+			 query.setParameter("idSec", idSec);
+			 query.setParameter("idEtu", idEtu);
+			 query.executeUpdate();
+	    }
+	    
 	    //Requête pour vérifier si l'étudiant est déja inscrit au séminaire
 	    public int etudiantInscrit(int idSec, int idEtu) {
 		   	 Query query = em.createQuery("select count(u) from Seminaire u JOIN fetch u.etudiants p where u.id = :idSec AND p.id = :idEtu");

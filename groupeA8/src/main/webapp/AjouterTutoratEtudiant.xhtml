@@ -10,7 +10,7 @@
 	
 <h:head>
 	<meta charset="UTF-8" />
-		<title>Ajouter Tutorat</title>
+		<title>Ajouter tutorat</title>
 </h:head>
 
  <h:body>
@@ -19,16 +19,16 @@
 
 <b:panel style="margin-top:60px">
 	<h:form>
-	  <b:dataTable value="#{etudiantController.getEtudiantsSection(seminaireController.section)}"
+	  <b:dataTable value="#{etudiantController.getEtudiantsSection(coursController.section)}"
 	               var="etudiant">
 	               
 	    <b:dataTableColumn value="#{etudiant.id}" />
 	    <b:dataTableColumn value="#{etudiant.nom}" />
 	    <b:dataTableColumn value="#{etudiant.prenom}" />
 	    
-	    <b:dataTableColumn value="#{seminaireController.verifEtudiantInscrit(etudiant)}" label="Ajouter ou supprimer">
-			<b:commandButton value="Ajouter" action="#{seminaireController.ajouterEtudiant(etudiant)}" iconAwesome="plus" rendered="#{seminaireController.isVisibleAdd()}"/>
-			<b:commandButton value="Supprimer" action="#{seminaireController.supprimerEtudiant(etudiant)}" iconAwesome="trash" rendered="#{seminaireController.isVisibleDelete()}"/>
+	    <b:dataTableColumn value="#{coursController.verifEtudiantInscrit(etudiant)}" label="Ajouter ou supprimer">
+			<b:commandButton value="Ajouter" action="#{coursController.addTutorat(etudiant)}" iconAwesome="plus" rendered="#{coursController.isVisibleAdd()}"/>
+			<b:commandButton value="Supprimer" action ="#{coursController.deleteTutorat(etudiant)}" iconAwesome="trash" rendered="#{coursController.isVisibleDelete()}"/>
 		</b:dataTableColumn>
 		
 	  </b:dataTable>

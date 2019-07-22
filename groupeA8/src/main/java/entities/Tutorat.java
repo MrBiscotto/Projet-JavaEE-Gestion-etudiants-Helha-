@@ -16,6 +16,7 @@ public class Tutorat implements Serializable {
     private String nom;
     private String section;
     private int etuId;
+    private int idCours;
     
     public Tutorat(String nom, String section) {
         this.nom = nom;
@@ -25,7 +26,15 @@ public class Tutorat implements Serializable {
     public Tutorat() {}
     
 
-    public int getEtuId() {
+    public int getIdCours() {
+		return idCours;
+	}
+
+	public void setIdCours(int idCours) {
+		this.idCours = idCours;
+	}
+
+	public int getEtuId() {
 		return etuId;
 	}
 

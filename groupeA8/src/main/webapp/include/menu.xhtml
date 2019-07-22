@@ -11,20 +11,20 @@
 				<b:navCommandLink href="ListeEtudiant.xhtml" action="#{etudiantController.setSection('IG')}" value="Liste étudiant" />
 				<b:navCommandLink href="ListeSeminaire.xhtml" action="#{seminaireController.setSection('IG')}" value="Liste séminaire" />
 				<b:navCommandLink href="ListeCours.xhtml" action="#{coursController.setSection('IG')}" value="Liste cours" />
-				<b:navLink value="Liste tutorat" href="ListeTutorat.xhtml"/>
+				<b:navCommandLink href="ListeTutorat.xhtml" action="#{tutoratController.setSection('IG')}" value="Liste tutorat" />
 			</b:dropMenu>
 			<b:dropMenu value="Assistant de direction">
 				<b:navCommandLink href="ListeEtudiant.xhtml" action="#{etudiantController.setSection('AD')}" value="Liste étudiant" />
 				<b:navCommandLink href="ListeSeminaire.xhtml" action="#{seminaireController.setSection('AD')}" value="Liste séminaire" />
 				<b:navCommandLink href="ListeCours.xhtml" action="#{coursController.setSection('AD')}" value="Liste cours" />
-				<b:navLink value="Liste tutorat" href="ListeTutorat.xhtml"/>
+				<b:navCommandLink href="ListeTutorat.xhtml" action="#{tutoratController.setSection('AD')}" value="Liste tutorat" />
 			</b:dropMenu>
 
 			<b:dropMenu value="Comptabilité">
 				<b:navCommandLink href="ListeEtudiant.xhtml" action="#{etudiantController.setSection('CT')}" value="Liste étudiant" />
 				<b:navCommandLink href="ListeSeminaire.xhtml" action="#{seminaireController.setSection('CT')}" value="Liste séminaire" />
 				<b:navCommandLink href="ListeCours.xhtml" action="#{coursController.setSection('CT')}" value="Liste cours" />
-				<b:navLink value="Liste tutorat" href="ListeTutorat.xhtml"/>
+				<b:navCommandLink href="ListeTutorat.xhtml" action="#{tutoratController.setSection('CT')}" value="Liste tutorat" />
 			</b:dropMenu>
 			
 			<b:navCommandLink value="Ajouter utilisateur" action="#{utilisateurController.checkAdminAdd()}"/>

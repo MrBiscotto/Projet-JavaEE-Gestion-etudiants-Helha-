@@ -66,7 +66,7 @@ public class Cours implements Serializable {
 		if (nom == null) {
 			if (other.nom != null)
 				return false;
-		} else if (!nom.equals(other.nom))
+		} else if (!nom.toUpperCase().equals(other.nom.toUpperCase()))
 			return false;
 		return true;
 	}

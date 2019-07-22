@@ -42,6 +42,10 @@ public class GestionSeminaireEJB implements IGestionSeminaireEJBRemote {
 	        dao.deleteSemi(u);
 	    }
 	    
+	    public void deleteSemiEtudiant(String idSec, int idEtu) {
+	    	dao.deleteSemiEtudiant(idSec, idEtu);
+	    }
+	    
 	    public void updateSeminaire(Seminaire seminaire) {
 	    	dao.updateSeminaire(seminaire);
 	    }

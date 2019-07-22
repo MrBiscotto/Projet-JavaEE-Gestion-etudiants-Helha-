@@ -126,6 +126,14 @@ public class SeminaireController implements Serializable{
     	
     }
     
+    public String supprimerEtudiant(Etudiant e) {
+
+    	gestionSeminaire.deleteSemiEtudiant(e.getSection(), e.getId());
+    	FacesContext context = FacesContext.getCurrentInstance();
+    	context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Etudiant supprimé du séminaire : " + seminaire.getNomSeminaire(), null));
+    	return "AjouterEtudiantSeminaire.xhtml?face-redirect=true";
+    }
+    
 	public String getSection() {
 		return section;
 	}

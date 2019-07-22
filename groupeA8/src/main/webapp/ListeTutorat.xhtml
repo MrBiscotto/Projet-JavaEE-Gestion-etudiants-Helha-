@@ -8,7 +8,7 @@
 	>
 <h:head>
 <meta charset="UTF-8" />
-	<title>Liste des cours</title>
+	<title>Liste des tutorats</title>
 
 	    <link rel="shortcut icon" href="images/seminaire.png"/>
 	    
@@ -24,32 +24,20 @@
 
 <div class="container" style="margin-top:60px">	
 
-	<hr></hr>
-
-	<h:form style=" margin-left:auto;margin-right:auto;width: 30%;height:70px">
-			<h:commandButton value="Créer un nouveau cours"
-				styleClass="btn btn-success btn-lg btn-block"
-				action="AjouterCours.xhtml?faces-redirect=true"/>
-	</h:form>	
-
-	<hr></hr>
-
 	<h:form>
-		<b:dataTable value="#{coursController.getListeCours(coursController.section)}" var="cours">
-			<b:dataTableColumn label="ID">
-      			<h:outputText value="#{cours.id}" />
+		<b:dataTable value="#{tutoratController.getListTuto(tutoratController.section)}" var="tuto">
+      		<b:dataTableColumn label="Tutorat">
+      			<h:outputText value="#{tuto[1]}" />
       		</b:dataTableColumn>
-      		<b:dataTableColumn label="Dénomination">
-      			<h:outputText value="#{cours.nom}" />
+
+      		<b:dataTableColumn label="Etudiant">
+      			<h:outputText value="#{tuto[2]} #{tuto[3]}" />
       		</b:dataTableColumn>
 			<b:dataTableColumn label="Supprimer">
 				<b:commandButton value="Delete" iconAwesome="trash"
-								 action="#{coursController.deleteCours(cours)}"/>
+								 action="#{tutoratController.deleteTutorat(tuto[0],tuto[1],tuto[2],tuto[3])}"/>
 			</b:dataTableColumn>
-			<b:dataTableColumn label="Ajouter un tutorat à un étudiant">
-				<b:commandButton value="Ajouter Etudiants"  iconAwesome="plus"
-							   action="#{coursController.navAjouterTutorat(cours)}" />
-			</b:dataTableColumn>
+
 		</b:dataTable>
 	</h:form>
 	

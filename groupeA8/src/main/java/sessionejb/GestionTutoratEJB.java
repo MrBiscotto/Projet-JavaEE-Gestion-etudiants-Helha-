@@ -24,7 +24,7 @@ public class GestionTutoratEJB implements IGestionTutoratEJBRemote{
             return dao.selectAll();
         }
 
-        public List<Tutorat> selectTutoSection(String idSection){
+        public List<String> selectTutoSection(String idSection){
         	return dao.selectTutoSection(idSection);
         }
         
@@ -35,10 +35,18 @@ public class GestionTutoratEJB implements IGestionTutoratEJBRemote{
             }
             return dao.addTutorat(u);
         }
+        
+        public int etudiantInscrit(String idSec, int idEtu, int idCours) {
+        	return dao.etudiantInscrit(idSec, idEtu, idCours);
+        }
 
         public void deleteTutorat(Tutorat u)
         {
             dao.deleteTutorat(u);
+        }
+        
+        public void deleteTutoratCours(int idCours) {
+        	dao.deleteTutoratCours(idCours);
         }
 
         public Tutorat getTutorat(int idTuto) {
