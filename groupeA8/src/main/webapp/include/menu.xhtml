@@ -1,7 +1,8 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:b="http://bootsfaces.net/ui">
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui">
 	<h:form>
 	<b:navBar brand="Helha" brandHref="index.xhtml" inverse="true" position="top">
 		<b:navbarLinks>
@@ -30,7 +31,7 @@
 			<b:navCommandLink value="Ajouter utilisateur" action="#{utilisateurController.checkAdminAdd()}"/>
 			<b:navLink value="A propos" href="APropos.xhtml"/>
 			<b:navCommandLink href="Connexion.xhtml" action="#{utilisateurController.deconnexion()}" value="Déconnexion" />
-
+			<b:inputText style="width:200px" value="" placeholder="Rechercher étudiant" typeahead="true" typeahead-values="#{etudiantController.getEtudiants()}"/>
 		</b:navbarLinks>
 	</b:navBar>
 </h:form>

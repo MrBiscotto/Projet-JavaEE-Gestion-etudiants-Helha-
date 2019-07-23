@@ -73,10 +73,16 @@ public class EtudiantController implements Serializable {
 	       this.etudiant = etudiant;
 	   }
 	   
-	   /*public List<Etudiant> getEtudiants() {
+	   public List<String> getEtudiants() {
 		etudiants = gestionEtudiant.selectAll();
-		return etudiants;
-	   }*/
+		List<String> listeNomPrenom = new ArrayList<String>();
+		
+		for(Etudiant e : etudiants) {
+			listeNomPrenom.add(e.getNom() + " " + e.getPrenom());
+		}
+		
+		return listeNomPrenom;
+	   }
 	   
 	   public NoteEtudiant getNoteEtudiant() {
 	       if(note == null) {
