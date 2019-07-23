@@ -1,17 +1,17 @@
 package controller;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-
 import entities.Cours;
-import entities.Etudiant;
 import entities.Tutorat;
 import sessionejb.GestionCoursEJB;
 import sessionejb.GestionTutoratEJB;
@@ -26,6 +26,8 @@ public class TutoratController implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@EJB
    private GestionTutoratEJB gestionTutorat;
+	@EJB
+   private GestionCoursEJB gestionCours;
    //private List<Tutorat> listeTutorat = new ArrayList<Tutorat>();
    private List<String> listeTutorat = new ArrayList<String>();
    private Tutorat tutorat;
@@ -34,6 +36,7 @@ public class TutoratController implements Serializable{
    
    public TutoratController() {}
    
+   @PostConstruct
    public void init() {
        tutorat = new Tutorat();
        cours = new Cours();
@@ -82,6 +85,27 @@ public class TutoratController implements Serializable{
        gestionTutorat.deleteTutorat(tutorat);
        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Tutorat en " + cours + " annulé pour l'étudiant " + nom + " " + prenom, null));
        return "ListeTutorat.xhtml?face-redirect=true";
+   }
+   
+   public int nbEtudiantTuto() {
+	   return gestionTutorat.nbEtudiantEnTutorat(section);
+   }
+   
+   //Calcul de la moyenne de cours demandé en tutorat
+   public String moyenneCours() {
+	   float totalCours  = gestionCours.nbCours(section);
+	   float totalCoursDemande = gestionTutorat.nbTutorat(section);
+	   
+	   if(totalCoursDemande != 0) {
+		   float tot = (totalCoursDemande / totalCours) * 100;
+		   String result = String.format("%.02f", tot);
+		   return result;
+	   }
+	   return "0";
+   }
+   
+   public List<Tutorat> getListTutoChart(){
+	   return gestionTutorat.getListCoursTuto(section);
    }
    
 

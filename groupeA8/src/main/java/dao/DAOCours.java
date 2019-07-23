@@ -55,6 +55,12 @@ public class DAOCours {
             query.setParameter("id", p.getId());
             query.executeUpdate();
         }
+        
+        public int nbCours(String idSec) {
+		   	 Query query = em.createQuery("select count(u) from Cours u where u.section = :idSec").setParameter("idSec", idSec);
+			 return ((Number) query.getSingleResult()).intValue();
+        }
+        
         public void close()
         {
             em.clear();

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+<meta charset="UTF-8" />
+	<title>Statistiques</title>
+	<link rel="shortcut icon" href="images/about.png"/>
+	
+	<f:metadata>
+    <f:viewAction action="#{utilisateurController.checkLogin}" />
+</f:metadata>
+	
+</h:head>
+<h:body>
+
+<ui:include src="include/menu.xhtml" />
+
+<div class="container" style="margin-top:80px">	
+	<b:jumbotron>
+		<h1>Statistiques tutorat</h1>
+		<h2>Nombre d'étudiants en tutorat : #{tutoratController.nbEtudiantTuto()}</h2>
+		<h2>Pourcentage de demande de tutorat : #{tutoratController.moyenneCours()} %</h2>
+	</b:jumbotron>
+
+</div>
+</h:body>
+</html>

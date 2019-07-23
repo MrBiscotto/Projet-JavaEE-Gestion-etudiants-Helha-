@@ -71,6 +71,25 @@ public class DAOTutorat {
             query.executeUpdate();
         }
         
+        //Permet de calculer le nombre d'étudiants participant à minimum un tutorat
+        public int nbEtudiantEnTutorat(String idSec) {
+		   	 Query query = em.createQuery("select count(distinct(u.etuId)) from Tutorat u where u.section = :idSec");
+			 query.setParameter("idSec", idSec);
+			 return ((Number) query.getSingleResult()).intValue();
+        }
+        
+        public int nbTutorat(String idSec) {
+		   	 Query query = em.createQuery("select count(distinct(u.nom)) from Tutorat u where u.section = :idSec");
+		   	query.setParameter("idSec", idSec);
+			 return ((Number) query.getSingleResult()).intValue();
+        }
+        
+        public List<Tutorat> getListCoursTuto(String idSec){
+		   	 Query query = em.createQuery("select distinct(u.nom) from Tutorat u where u.section = :idSec");
+		   	query.setParameter("idSec", idSec);
+		   	return query.getResultList();
+        }
+        
         public void close()
         {
             em.clear();

@@ -42,6 +42,10 @@ public class GestionCoursEJB implements IGestionCoursEJBRemote{
         {
             dao.deleteCours(u);
         }
+        
+        public int nbCours(String idSec) {
+        	return dao.nbCours(idSec);
+        }
 
         public Cours getCours(int u) {
             return dao.getCours(u);
