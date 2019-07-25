@@ -2,7 +2,8 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:b="http://bootsfaces.net/ui"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
 	<h:form>
 	<b:navBar brand="Helha" brandHref="index.xhtml" inverse="true" position="top">
 		<b:navbarLinks>
@@ -30,9 +31,34 @@
 			
 			<b:navCommandLink value="Ajouter utilisateur" action="#{utilisateurController.checkAdminAdd()}"/>
 			<b:navLink value="A propos" href="APropos.xhtml"/>
+			<b:navLink value="Rechercher un étudiant" onclick="$('.formValidationModalClass').modal()"/>
 			<b:navCommandLink href="Connexion.xhtml" action="#{utilisateurController.deconnexion()}" value="Déconnexion" />
-			<b:inputText style="width:200px" value="" placeholder="Rechercher étudiant" typeahead="true" typeahead-values="#{etudiantController.getEtudiants()}"/>
 		</b:navbarLinks>
 	</b:navBar>
 </h:form>
+
+<h:form id="formRecherche">
+  <b:modal id="dia" title="Rechercher un étudiant" styleClass="formValidationModalClass"
+           closable="false"  close-on-escape="false" backdrop="false">
+           
+		<b:inputText id="input"  placeholder="Rechercher étudiant" typeahead="true" 
+						typeahead-limit="8" typeahead-values="#{etudiantController.getEtudiants()}"
+						value="#{etudiantController.nomPrenomRecherche}"
+						required="true"
+						requiredMessage="Entrez le nom et prénom d'un étudiant"/>
+
+					<br />
+
+    <f:facet name="footer">
+      <b:button value="Fermer" dismiss="modal" />
+      <b:commandButton value="Rechercher" look="primary" action="#{etudiantController.rechercheEtudiant()}" 
+      			styleClass="btn btn-success"
+      			/>
+    </f:facet>
+  </b:modal>
+</h:form>
+
 </ui:composition>
+
+
+

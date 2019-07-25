@@ -53,6 +53,7 @@ public class EtudiantController implements Serializable {
 	private Etudiant etudiant;
 	private NoteEtudiant note;
 	private String section;
+	private String nomPrenomRecherche = null;
 	   
 	   public EtudiantController() {}
 	  
@@ -71,17 +72,27 @@ public class EtudiantController implements Serializable {
 
 	   public void setEtudiant(Etudiant etudiant) {
 	       this.etudiant = etudiant;
+	   }  
+	   
+	   public List<String> getEtudiants(){
+			etudiants.clear();
+			etudiants = gestionEtudiant.selectAll();
+			List<String> listeNomPrenom = new ArrayList<String>();
+			
+			for(Etudiant e : etudiants) {
+
+					listeNomPrenom.add(e.getNom().replaceAll("'", "-") + " " + e.getPrenom().replaceAll("'", "-"));
+			}
+			return listeNomPrenom;
+			
 	   }
 	   
-	   public List<String> getEtudiants() {
-		etudiants = gestionEtudiant.selectAll();
-		List<String> listeNomPrenom = new ArrayList<String>();
-		
-		for(Etudiant e : etudiants) {
-			listeNomPrenom.add(e.getNom() + " " + e.getPrenom());
-		}
-		
-		return listeNomPrenom;
+	   public String getNomPrenomRecherche() {
+		   return this.nomPrenomRecherche;
+	   }
+	   
+	   public void setNomPrenomRecherche(String nom) {
+		   this.nomPrenomRecherche = nom;
 	   }
 	   
 	   public NoteEtudiant getNoteEtudiant() {
@@ -116,10 +127,28 @@ public class EtudiantController implements Serializable {
 	       gestionSeminaire.updateSeminaire(seminaire);
 	   }
 	   */
-	   public void addEtudiant() {
-		   gestionEtudiant.addEtudiant(etudiant);
+   public void addEtudiant() {
+	   gestionEtudiant.addEtudiant(etudiant);
+   }
+   
+   public String rechercheEtudiant() {
+
+	   FacesContext context = FacesContext.getCurrentInstance();
+
+	   nomPrenomRecherche = nomPrenomRecherche.replaceAll("-","'");
+	   String[] nP = nomPrenomRecherche.split("\\s+");
+  		nomPrenomRecherche = null;
+	   
+	   if(gestionEtudiant.getEtudiantNomPrenom(nP[0], nP[1]) != null) {
+	   
+		   etudiant = gestionEtudiant.getEtudiantNomPrenom(nP[0], nP[1]);  
+	   		return "DetailEtudiant.xhtml?faces-redirect=true";
 	   }
-	
+	   
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Etudiant non existant !", null));
+	   return null;
+   }
+   
 	public String navDetailsEtudiant(Etudiant e){
 		etudiant = e;
 		return "DetailEtudiant.xhtml?faces-redirect=true";

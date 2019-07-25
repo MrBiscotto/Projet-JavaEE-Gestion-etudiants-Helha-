@@ -47,6 +47,13 @@ public class DAOEtudiant implements Serializable {
     }
     */
     
+    public Etudiant getEtudiantNomPrenom(String nom, String prenom) {
+        Query query= em.createQuery("select e from Etudiant e where e.nom = :nom and e.prenom = :prenom");
+        query.setParameter("nom", nom);
+        query.setParameter("prenom", prenom);
+        return (Etudiant) query.getSingleResult();
+    }
+    
     public Etudiant getEtudiant(int idEtu)
     {
         Query query= em.createQuery("select e from Etudiant e where e.id = :id ");

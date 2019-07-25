@@ -3,7 +3,10 @@
 	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	
 <h:head>
 <meta charset="UTF-8" />
 	<title>Index</title>
@@ -28,7 +31,11 @@
 		cursor : 'wait'
 	};
 	
+	function myFunction() {
+		  document.getElementById("submit").click(); // Click on the checkbox
+		}
 </script>
+
 
 <h:body>
 
@@ -65,8 +72,8 @@
 					<hr/>			
 
 					
-				<b:commandButton action="#{etudiantController.save()}" tooltip="Charger le fichier choisit" tooltip-position="auto"
-					id="submit" onclick="if (!confirm('Attention cette action supprimera l ensemble des étudiants !')) return false;ajax:blockUIBean.waitFiveSeconds();" 
+				<b:button  tooltip="Charger le fichier choisit" tooltip-position="auto"
+					id="submit" onclick="$('.modalDialog2').modal();"
 					value="Charger"
 					styleClass="btn btn-success" ajax="false" style="width:30%" />
 
@@ -75,10 +82,28 @@
 				         delay="10000" escape="true" />
 				         
 			</h:form>
-			
+			              
 		</b:jumbotron>
-		
+
 	</div>
+	
+<h:form id="myFormID2">
+  <b:modal id="dia2" title="Chargement liste étudiant" styleClass="modalDialog2"
+           closable="false"  close-on-escape="false" backdrop="false">
+           
+		<p>Attention cette action supprimera tout les étudiants !</p>
+
+					<br />
+
+    <f:facet name="footer">
+      <b:button value="Fermer" dismiss="modal" />
+      <b:commandButton action="#{etudiantController.save()}" value="Enregistrer" look="primary" onclick="$('.modalDialog2').modal('hide');ajax:blockUIBean.waitFiveSeconds();"
+      			dismiss="modal" styleClass="btn btn-danger" />
+    </f:facet>
+  </b:modal>
+</h:form>
+
+
 	
 </h:body>
 </html>
