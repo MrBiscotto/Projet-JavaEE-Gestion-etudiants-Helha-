@@ -14,12 +14,14 @@
 				<b:navCommandLink href="ListeSeminaire.xhtml" action="#{seminaireController.setSection('IG')}" value="Liste séminaire" />
 				<b:navCommandLink href="ListeCours.xhtml" action="#{coursController.setSection('IG')}" value="Liste cours" />
 				<b:navCommandLink href="ListeTutorat.xhtml" action="#{tutoratController.setSection('IG')}" value="Liste tutorat" />
+				<b:navCommandLink href="ListeRemediation.xhtml" action="#{remediationController.setSection('IG')}" value="Liste remédiation" />
 			</b:dropMenu>
 			<b:dropMenu value="Assistant de direction">
 				<b:navCommandLink href="ListeEtudiant.xhtml" action="#{etudiantController.setSection('AD')}" value="Liste étudiant" />
 				<b:navCommandLink href="ListeSeminaire.xhtml" action="#{seminaireController.setSection('AD')}" value="Liste séminaire" />
 				<b:navCommandLink href="ListeCours.xhtml" action="#{coursController.setSection('AD')}" value="Liste cours" />
 				<b:navCommandLink href="ListeTutorat.xhtml" action="#{tutoratController.setSection('AD')}" value="Liste tutorat" />
+				<b:navCommandLink href="ListeRemediation.xhtml" action="#{remediationController.setSection('AD')}" value="Liste remédiation" />
 			</b:dropMenu>
 
 			<b:dropMenu value="Comptabilité">
@@ -27,11 +29,12 @@
 				<b:navCommandLink href="ListeSeminaire.xhtml" action="#{seminaireController.setSection('CT')}" value="Liste séminaire" />
 				<b:navCommandLink href="ListeCours.xhtml" action="#{coursController.setSection('CT')}" value="Liste cours" />
 				<b:navCommandLink href="ListeTutorat.xhtml" action="#{tutoratController.setSection('CT')}" value="Liste tutorat" />
+				<b:navCommandLink href="ListeRemediation.xhtml" action="#{remediationController.setSection('CT')}" value="Liste remédiation" />
 			</b:dropMenu>
 			
+			<b:navLink value="Rechercher un étudiant" onclick="$('.formValidationModalClass').modal()"/>
 			<b:navCommandLink value="Ajouter utilisateur" action="#{utilisateurController.checkAdminAdd()}"/>
 			<b:navLink value="A propos" href="APropos.xhtml"/>
-			<b:navLink value="Rechercher un étudiant" onclick="$('.formValidationModalClass').modal()"/>
 			<b:navCommandLink href="Connexion.xhtml" action="#{utilisateurController.deconnexion()}" value="Déconnexion" />
 		</b:navbarLinks>
 	</b:navBar>

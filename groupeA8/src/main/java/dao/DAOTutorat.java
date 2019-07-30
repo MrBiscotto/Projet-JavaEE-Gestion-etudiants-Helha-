@@ -71,6 +71,12 @@ public class DAOTutorat {
             query.executeUpdate();
         }
         
+        public void deleteTutoratEtudiant(int idEtu) {
+            Query query = em.createQuery("delete from Tutorat c where c.idEtu = :id ");
+            query.setParameter("id", idEtu);
+            query.executeUpdate();
+        }
+        
         //Permet de calculer le nombre d'étudiants participant à minimum un tutorat
         public int nbEtudiantEnTutorat(String idSec) {
 		   	 Query query = em.createQuery("select count(distinct(u.etuId)) from Tutorat u where u.section = :idSec");

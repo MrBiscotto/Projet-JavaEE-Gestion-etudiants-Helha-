@@ -17,6 +17,7 @@ import entities.Cours;
 import entities.Etudiant;
 import entities.Tutorat;
 import sessionejb.GestionCoursEJB;
+import sessionejb.GestionRemediationEJB;
 import sessionejb.GestionTutoratEJB;
 
 @Named
@@ -34,6 +35,8 @@ public class CoursController implements Serializable{
    private GestionCoursEJB gestionCours;
 	@EJB
    private GestionTutoratEJB gestionTutorat;
+	@EJB
+   private GestionRemediationEJB gestionRemediation;
    private List<Cours> listeCours = new ArrayList<Cours>();
    private Cours cours;
    private Tutorat tutorat;
@@ -94,6 +97,9 @@ public class CoursController implements Serializable{
 	   FacesContext context = FacesContext.getCurrentInstance();
        gestionCours.deleteCours(c);
        gestionTutorat.deleteTutoratCours(c.getId());
+       
+       //Récupérer la liste des id tutot à supprimer et supprimer toutes les remédiations
+       
        listeCours.remove(c);
        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Cours supprimé !", null));
        return "ListeCours.xhtml?face-redirect=true";

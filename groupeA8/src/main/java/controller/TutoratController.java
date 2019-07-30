@@ -14,6 +14,7 @@ import javax.inject.Named;
 import entities.Cours;
 import entities.Tutorat;
 import sessionejb.GestionCoursEJB;
+import sessionejb.GestionRemediationEJB;
 import sessionejb.GestionTutoratEJB;
 
 @Named
@@ -28,6 +29,8 @@ public class TutoratController implements Serializable{
    private GestionTutoratEJB gestionTutorat;
 	@EJB
    private GestionCoursEJB gestionCours;
+	@EJB
+   private GestionRemediationEJB gestionRemediation;
    //private List<Tutorat> listeTutorat = new ArrayList<Tutorat>();
    private List<String> listeTutorat = new ArrayList<String>();
    private Tutorat tutorat;
@@ -83,6 +86,7 @@ public class TutoratController implements Serializable{
 	   tutorat = new Tutorat();
 	   tutorat.setId(id);
        gestionTutorat.deleteTutorat(tutorat);
+       gestionRemediation.deleteAllRemediation(tutorat.getId());
        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Tutorat en " + cours + " annulé pour l'étudiant " + nom + " " + prenom, null));
        return "ListeTutorat.xhtml?face-redirect=true";
    }

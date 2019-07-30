@@ -24,6 +24,7 @@
     		<class>entities.Etudiant</class>
     		<class>entities.NoteEtudiant</class>
     		<class>entities.Tutorat</class>
+    		<class>entities.Remediation</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 		
 		

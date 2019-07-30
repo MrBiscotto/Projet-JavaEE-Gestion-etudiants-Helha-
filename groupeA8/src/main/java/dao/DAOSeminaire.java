@@ -92,6 +92,7 @@ public class DAOSeminaire implements Serializable {
 			 return ((Number) query.getSingleResult()).intValue();
 	    }
 	    
+	    
 	    public void close()
 	    {
 	        em.clear();

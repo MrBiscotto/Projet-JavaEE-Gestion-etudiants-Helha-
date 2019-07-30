@@ -31,6 +31,7 @@ import entities.Seminaire;
 import sessionejb.GestionEtudiantEJB;
 import sessionejb.GestionNoteEtudiantEJB;
 import sessionejb.GestionSeminaireEJB;
+import sessionejb.GestionTutoratEJB;
 import util.ExcelReader;
 
 @Named
@@ -48,12 +49,17 @@ public class EtudiantController implements Serializable {
 	private GestionEtudiantEJB gestionEtudiant;
 	@EJB
 	private GestionNoteEtudiantEJB gestionNote;
+	@EJB
+	private GestionTutoratEJB gestionTuto;
+	@EJB
+	private GestionSeminaireEJB gestionSemi;
 	private List<Etudiant> etudiants = new ArrayList<Etudiant>();
 	private List<NoteEtudiant> notes = new ArrayList<NoteEtudiant>();
 	private Etudiant etudiant;
 	private NoteEtudiant note;
 	private String section;
 	private String nomPrenomRecherche = null;
+	private Part file; 
 	   
 	   public EtudiantController() {}
 	  
@@ -78,10 +84,16 @@ public class EtudiantController implements Serializable {
 			etudiants.clear();
 			etudiants = gestionEtudiant.selectAll();
 			List<String> listeNomPrenom = new ArrayList<String>();
+			String nom = "";
+			String prenom ="";
 			
 			for(Etudiant e : etudiants) {
+					nom = e.getNom().replaceAll("-", "~");
+					prenom = e.getPrenom().replaceAll("-", "~");
+					nom = nom.replaceAll(" ", "-");
+					prenom = prenom.replaceAll(" ", "-");
 
-					listeNomPrenom.add(e.getNom().replaceAll("'", "-") + " " + e.getPrenom().replaceAll("'", "-"));
+					listeNomPrenom.add(nom.replaceAll("'", "`") + " " + prenom.replaceAll("'", "-"));
 			}
 			return listeNomPrenom;
 			
@@ -117,8 +129,11 @@ public class EtudiantController implements Serializable {
 	   }
 
 	public String deleteEtudiant(Etudiant etudiant) {
+
+			//gestionSemi.deleteSemiEtudiant(etudiant.getSection(), etudiant.getId());
 			gestionNote.deleteNotesEtudiant(etudiant.getId());
 		   gestionEtudiant.deleteEtudiant(etudiant);
+		   gestionTuto.deleteTutoratEtudiant(etudiant.getId());
 		   etudiants = gestionEtudiant.selectAll();
 		   return "ListeEtudiant.xhtml?faces-redirect=true";
 	   }
@@ -135,11 +150,16 @@ public class EtudiantController implements Serializable {
 
 	   FacesContext context = FacesContext.getCurrentInstance();
 
-	   nomPrenomRecherche = nomPrenomRecherche.replaceAll("-","'");
+	   nomPrenomRecherche = nomPrenomRecherche.replaceAll("`","'");
 	   String[] nP = nomPrenomRecherche.split("\\s+");
-  		nomPrenomRecherche = null;
+	   nP[0] = nP[0].replaceAll("-", " ");
+	   nP[1] = nP[1].replaceAll("-", " ");
+	   nP[0] = nP[0].replaceAll("~", "-");
+	   nP[1] = nP[1].replaceAll("~", "-");
 	   
-	   if(gestionEtudiant.getEtudiantNomPrenom(nP[0], nP[1]) != null) {
+  		nomPrenomRecherche = null;
+
+	   if(gestionEtudiant.getEtudiantNomPrenom(nP[0], nP[1]).getId() != null) {
 	   
 		   etudiant = gestionEtudiant.getEtudiantNomPrenom(nP[0], nP[1]);  
 	   		return "DetailEtudiant.xhtml?faces-redirect=true";
@@ -154,8 +174,7 @@ public class EtudiantController implements Serializable {
 		return "DetailEtudiant.xhtml?faces-redirect=true";
 	}
 	   
-	private Part file; 
-	public void save() throws InvalidFormatException, EncryptedDocumentException, org.apache.poi.openxml4j.exceptions.InvalidFormatException, IOException {
+	public String save() throws InvalidFormatException, EncryptedDocumentException, org.apache.poi.openxml4j.exceptions.InvalidFormatException, IOException {
 		
 	        File cFile = new File(file.getSubmittedFileName());
 	        try {
@@ -189,6 +208,8 @@ public class EtudiantController implements Serializable {
 	        }catch(Exception e) {
 	        	loadFile = false;
 	        }
+	        
+	        return "index.xhtml?faces-redirect=true";
 	}
 	
 	public void messageLoadFile() {
