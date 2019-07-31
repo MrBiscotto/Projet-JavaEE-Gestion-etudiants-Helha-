@@ -96,6 +96,14 @@ public class CoursController implements Serializable{
    public String deleteCours(Cours c) {
 	   FacesContext context = FacesContext.getCurrentInstance();
        gestionCours.deleteCours(c);
+       
+       List<Integer> listId = new ArrayList<Integer>();
+       listId = gestionTutorat.getListIdTutoCours(c.getId());
+       
+       for(int i : listId) {
+    	   gestionRemediation.deleteAllRemediation(i);
+       }
+       
        gestionTutorat.deleteTutoratCours(c.getId());
        
        //Récupérer la liste des id tutot à supprimer et supprimer toutes les remédiations

@@ -1,8 +1,11 @@
 package controller;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -27,7 +30,7 @@ public class RemediationController implements Serializable{
 	private GestionRemediationEJB gestionRemediation;
 	private List<Remediation> remediations = new ArrayList<Remediation>();
 	private Remediation remediation;
-	private String section; 
+	private String section;
 	
 	public RemediationController() {}
 	
@@ -62,9 +65,26 @@ public class RemediationController implements Serializable{
 		}
 		
 		public void ajouterRemediation(int tutoId) {
-			int test = tutoId;
-			remediation.setTutoId(tutoId);
-			gestionRemediation.addRemediation(remediation);
+				int test = tutoId;
+				remediation.setTutoId(tutoId);
+				
+				DateTimeFormatter cestDateTimeFormatter = DateTimeFormatter
+		                .ofPattern("EE MMM dd HH:mm:ss z yyyy",
+		                Locale.ENGLISH);
+		        LocalDateTime timestamp = LocalDateTime.parse(remediation.getDate(), cestDateTimeFormatter);
+		 
+		        // Formatage dans le nouveau format
+		        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE dd MMMM YYYY à HH:mm", Locale.FRANCE);
+		        String resultat = formatter.format(timestamp);
+		        
+		        remediation.setDate(resultat);
+				
+				gestionRemediation.addRemediation(remediation);
+				remediation.setDate(null);
+		}
+		
+		public int nbReme(int idTuto) {
+			return gestionRemediation.getNbReme(idTuto);
 		}
 		
 		public String getRemediationsTuto(int idTuto) {

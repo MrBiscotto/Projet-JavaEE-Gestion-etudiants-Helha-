@@ -57,6 +57,12 @@ public class DAOTutorat {
 			 query.setParameter("idCours", idCours);
 			 return ((Number) query.getSingleResult()).intValue();
 	    }
+	    
+	    public List<Integer> getListIdTutoCours(int idCours){
+		   	 Query query = em.createQuery("SELECT u.id FROM Tutorat u WHERE u.idCours = :id");
+			 query.setParameter("id", idCours);
+			 return (List<Integer>) query.getResultList();
+	    }
 
         public void deleteTutorat(Tutorat p)
         {

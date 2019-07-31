@@ -77,10 +77,12 @@
 						<b:messages for="file" />
 					<hr/>			
 
-				<b:button  tooltip="Charger le fichier choisit" tooltip-position="auto"
+				<b:commandButton  tooltip="Charger le fichier choisit" tooltip-position="auto"
 					id="submit" onclick="$('.modalDialog2').modal();"
 					value="Charger"
-					styleClass="btn btn-success" ajax="false" style="width:30%" />
+					styleClass="btn btn-success" ajax="false" style="width:30%" >
+					<f:ajax execute="@form" render="@none" />
+				</b:commandButton>
 				         
 			</h:form>
 			

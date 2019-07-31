@@ -31,6 +31,12 @@ public class DAORemediation {
         return reme;  
     }
     
+    public int getNbReme(int idTuto) {
+	   	 Query query = em.createQuery("select count(u) from Remediation u where u.tutoId = :id");
+	   	query.setParameter("id", idTuto);
+		 return ((Number) query.getSingleResult()).intValue();
+    }
+    
     public void deleteAllRemediation(int tutoId) {
         Query query = em.createQuery("DELETE FROM Remediation c WHERE c.tutoId = :id");
         query.setParameter("id", tutoId);

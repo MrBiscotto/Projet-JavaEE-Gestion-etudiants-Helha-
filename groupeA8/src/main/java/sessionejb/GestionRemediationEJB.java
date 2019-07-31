@@ -30,6 +30,10 @@ public class GestionRemediationEJB {
 	   dao.deleteAllRemediation(tutoId);
    }
    
+   public int getNbReme(int idTuto) {
+	   return dao.getNbReme(idTuto);
+   }
+   
    public void deleteRemediation(Remediation r) {
 	   dao.deleteRemediation(r);
    }

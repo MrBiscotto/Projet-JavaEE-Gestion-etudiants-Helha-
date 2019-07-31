@@ -38,9 +38,14 @@
       		<b:dataTableColumn label="Liste remédiation" width="450" value="#{remediationController.getRemediationsTuto(tuto[0])}">
       		</b:dataTableColumn>
       		
+      		 <b:dataTableColumn label="Nombre de remédiations" value="#{remediationController.nbReme(tuto[0])}">
+      		</b:dataTableColumn>
+      		
       		<b:dataTableColumn label="Ajouter une remédiation">
    				<b:commandButton value="Ajouter remédiation"  iconAwesome="plus" action="#{remediationController.ajouterRemediation(tuto[0])}"
-				   onclick="$('.modalRemediation').modal();"/>
+				   onclick="$('.modalRemediation').modal();">
+				   	<f:ajax execute="@form" render="@none" />
+				   </b:commandButton>
       		</b:dataTableColumn>
 
 		</b:dataTable>

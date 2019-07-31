@@ -133,7 +133,7 @@ public class EtudiantController implements Serializable {
 			//gestionSemi.deleteSemiEtudiant(etudiant.getSection(), etudiant.getId());
 			gestionNote.deleteNotesEtudiant(etudiant.getId());
 		   gestionEtudiant.deleteEtudiant(etudiant);
-		   gestionTuto.deleteTutoratEtudiant(etudiant.getId());
+		   //gestionTuto.deleteTutoratEtudiant(etudiant.getId());
 		   etudiants = gestionEtudiant.selectAll();
 		   return "ListeEtudiant.xhtml?faces-redirect=true";
 	   }
