@@ -108,6 +108,30 @@ public class TutoratController implements Serializable{
 	   return "0";
    }
    
+   public String statsCours() {
+	   List<Object[]> tmpList = new ArrayList<Object[]>();
+	   tmpList = gestionTutorat.getStatsCours(this.section);
+
+	   int index = 0;
+	   int size = tmpList.size();
+	   String stats = "";
+	   
+	   for(Object[] tmp : tmpList) {	   		 
+		   
+		   if(index < size-1) {   
+			   stats += String.valueOf(tmp[0]) + " <--> Nombre d'étudiant en demande de tutorat : " + String.valueOf(tmp[1]) + System.getProperty("line.separator");   
+		   }else {
+			   stats += String.valueOf(tmp[0]) + " <--> Nombre d'étudiant en demande de tutorat : " + String.valueOf(tmp[1]); 
+		   }
+
+		   index = index + 1;
+	   }
+	   
+	   
+	   
+	   return stats;
+   }
+   
    public List<Tutorat> getListTutoChart(){
 	   return gestionTutorat.getListCoursTuto(section);
    }

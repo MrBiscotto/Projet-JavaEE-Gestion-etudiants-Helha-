@@ -102,6 +102,12 @@ public class DAOTutorat {
 		   	return query.getResultList();
         }
         
+        public List<Object[]> getStatsCours(String idSec){
+		   	 Query query = em.createQuery("select distinct(u.nom),count(u.nom) from Tutorat u where u.section = :idSec group by u.nom");
+		   	query.setParameter("idSec", idSec);
+		   	return query.getResultList();
+        }
+        
         public void close()
         {
             em.clear();

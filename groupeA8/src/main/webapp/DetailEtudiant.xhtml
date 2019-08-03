@@ -62,7 +62,9 @@
 		    <b:dataTableColumn value="#{note.texte}"/>
 		    <b:dataTableColumn label="Date d'ajout" value="#{note.date}"/>
 		    <b:dataTableColumn label="Modifier note">
-				<b:button value="Modifier"  iconAwesome="edit" onclick="$('.modalDialog').modal()" action="#{etudiantController.modifierNote(note)}"/>
+				<b:commandButton value="Modifier"  iconAwesome="edit" onclick="$('.modalDialog').modal()" action="#{etudiantController.setNoteEtudiant(note)}">
+					<f:ajax execute="@form" render="@none" />
+				</b:commandButton>
 			</b:dataTableColumn>
 		  	<b:dataTableColumn label="Supprimer note">
 				<b:commandButton value="Supprimer" iconAwesome="trash" action="#{etudiantController.supprimerNote(note)}"/>
@@ -100,7 +102,7 @@
     
     <f:facet name="footer">
       <b:button value="Fermer" dismiss="modal" />
-      <b:commandButton value="Enregistrer" look="primary"
+      <b:commandButton value="Enregistrer" look="primary" action="#{etudiantController.modifierNote()}"
       			dismiss="modal" styleClass="btn btn-success" />
     </f:facet>
   </b:modal>

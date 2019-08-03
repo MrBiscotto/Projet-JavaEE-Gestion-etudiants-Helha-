@@ -31,6 +31,7 @@ public class RemediationController implements Serializable{
 	private List<Remediation> remediations = new ArrayList<Remediation>();
 	private Remediation remediation;
 	private String section;
+	private int idTuto = 0;
 	
 	public RemediationController() {}
 	
@@ -44,6 +45,10 @@ public class RemediationController implements Serializable{
 	           init();
 	       }
 	       return remediation;
+	   }
+	   
+	   public void setIdTuto(int id) {
+		   this.idTuto = id;
 	   }
 	   
 	   public void setRemediation(Remediation rem) {
@@ -64,9 +69,8 @@ public class RemediationController implements Serializable{
 			return remediations;
 		}
 		
-		public void ajouterRemediation(int tutoId) {
-				int test = tutoId;
-				remediation.setTutoId(tutoId);
+		public void ajouterRemediation() {
+				remediation.setTutoId(this.idTuto);
 				
 				DateTimeFormatter cestDateTimeFormatter = DateTimeFormatter
 		                .ofPattern("EE MMM dd HH:mm:ss z yyyy",
@@ -81,6 +85,7 @@ public class RemediationController implements Serializable{
 				
 				gestionRemediation.addRemediation(remediation);
 				remediation.setDate(null);
+				//return "ListeRemediation.xhtml?face-redirect=true";
 		}
 		
 		public int nbReme(int idTuto) {

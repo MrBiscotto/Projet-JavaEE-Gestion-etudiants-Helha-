@@ -3,7 +3,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui">
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 <meta charset="UTF-8" />
@@ -24,6 +25,10 @@
 		<h1>Statistiques tutorat</h1>
 		<h2>Nombre d'étudiants en tutorat : #{tutoratController.nbEtudiantTuto()}</h2>
 		<h2>Pourcentage de demande de tutorat : #{tutoratController.moyenneCours()} %</h2>
+	
+		<hr></hr>
+		<h2>Nombre de demandes de tutorat selon le cours</h2>
+		<pre><p>#{tutoratController.statsCours()}</p></pre>
 	</b:jumbotron>
 
 </div>

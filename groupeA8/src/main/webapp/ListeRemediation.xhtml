@@ -26,7 +26,7 @@
 <div class="container" style="margin-top:60px">	
 
 	<h:form>
-		<b:dataTable value="#{tutoratController.getListTuto(remediationController.section)}" var="tuto">
+		<b:dataTable value="#{tutoratController.getListTuto(remediationController.section)}" var="tuto" pdf="true">
       		<b:dataTableColumn label="Tutorat">
       			<h:outputText value="#{tuto[1]}" />
       		</b:dataTableColumn>
@@ -42,10 +42,10 @@
       		</b:dataTableColumn>
       		
       		<b:dataTableColumn label="Ajouter une remédiation">
-   				<b:commandButton value="Ajouter remédiation"  iconAwesome="plus" action="#{remediationController.ajouterRemediation(tuto[0])}"
+   				<b:commandButton value="Ajouter remédiation"  iconAwesome="plus" action="#{remediationController.setIdTuto(tuto[0])}"
 				   onclick="$('.modalRemediation').modal();">
 				   	<f:ajax execute="@form" render="@none" />
-				   </b:commandButton>
+				</b:commandButton>
       		</b:dataTableColumn>
 
 		</b:dataTable>
@@ -72,7 +72,7 @@
 
     <f:facet name="footer">
       <b:button value="Fermer" dismiss="modal" />
-      <b:commandButton value="Enregistrer" look="primary"       
+      <b:commandButton value="Enregistrer" look="primary" action="#{remediationController.ajouterRemediation()}"       
       			dismiss="modal" styleClass="btn btn-danger" />
     </f:facet>
   </b:modal>

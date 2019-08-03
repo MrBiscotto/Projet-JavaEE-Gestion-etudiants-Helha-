@@ -35,15 +35,15 @@
 	<hr></hr>
 
 	<h:form>
-		<b:dataTable value="#{seminaireController.getSeminairesSection(seminaireController.section)}" var="seminaire">
+		<b:dataTable value="#{seminaireController.getSeminairesSection(seminaireController.section)}" var="seminaire" pdf="true">
 			<b:dataTableColumn label="Nom du séminaire">
       			<h:outputText value="#{seminaire.nomSeminaire}" />
       		</b:dataTableColumn>
       		<b:dataTableColumn label="Date">
       			<h:outputText value="#{seminaire.date}" />
       		</b:dataTableColumn>
-			<b:dataTableColumn label="Supprimer">
-				<b:commandButton value="Delete" iconAwesome="trash"
+			<b:dataTableColumn label="Supprimer séminaire">
+				<b:commandButton value="Supprimer" iconAwesome="trash"
 					action="#{seminaireController.deleteSeminaire(seminaire)}" />
 			</b:dataTableColumn>
 			<b:dataTableColumn label="Ajouter un étudiant à un séminaire">

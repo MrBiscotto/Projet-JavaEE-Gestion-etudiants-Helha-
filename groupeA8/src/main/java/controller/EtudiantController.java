@@ -291,11 +291,14 @@ public class EtudiantController implements Serializable {
    }
   //Ajouter étudiant
    
-   public String modifierNote(NoteEtudiant n) {
-	   note.setId(n.getId());
-	   gestionNote.updateNote(note);
+   public void modifierNote() {
+	   gestionNote.updateNote(this.note);
 	   note.setTexte(null);
-	   return "DetailEtudiant.xhtml?faces-redirect=true";
+	   //return "DetailEtudiant.xhtml?faces-redirect=true";
+   }
+   
+   public void setTmpId(int id) {
+	   this.tmpId = id;
    }
    
    public void getIdNote(NoteEtudiant n) {
