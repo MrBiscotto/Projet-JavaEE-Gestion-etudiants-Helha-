@@ -49,6 +49,9 @@ public class GestionNoteEtudiantEJB implements IGestionNoteEtudiantEJBRemote {
 		dao.deleteNotesEtudiant(id);
 	}
 	
+    public void deleteAllNote() {
+    	dao.deleteAllNote();
+    }
 
 
 }

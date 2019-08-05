@@ -113,4 +113,41 @@ public class RemediationController implements Serializable{
 			
 		}
 	
+		   public String listRemeEtu(int idEtu) {
+			   List<String> returnList = new ArrayList<String>();
+			   String[] tab = null;
+			   List<Object[]> tmpList = new ArrayList<Object[]>();
+			   tmpList = gestionRemediation.getListRemeEtu(idEtu);
+
+			   int i = 0;
+			   int pos=0;
+			   String add = "";
+			   String nomTmp="";
+			   String nomIf="";
+			   
+			   for(Object[] tmp : tmpList) {	   		 
+				   
+				   nomTmp =  String.valueOf(tmp[0]);
+				   
+				   if(nomIf.equals(nomTmp)) {
+					   
+					   add += " - [" + String.valueOf(tmp[1]) + "]";
+					   pos= pos + 1;
+					   //tab[i- pos] = add;
+					   
+				   }else {
+					   //add="";
+					   add += String.valueOf(tmp[0]) + " [" + String.valueOf(tmp[1]) + "]";
+					   tab[i] = add;
+					   nomIf = String.valueOf(tmp[0]);
+					   
+				   }
+				   
+				   i++;	   
+			   }
+			   
+			   
+			   return add;
+		   }
+		
 }

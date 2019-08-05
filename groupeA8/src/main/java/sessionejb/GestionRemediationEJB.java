@@ -37,4 +37,8 @@ public class GestionRemediationEJB {
    public void deleteRemediation(Remediation r) {
 	   dao.deleteRemediation(r);
    }
+   
+   public List<Object[]> getListRemeEtu(int idEtu){
+	   return dao.getListRemeEtu(idEtu);
+   }
 }

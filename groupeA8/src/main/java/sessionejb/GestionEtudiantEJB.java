@@ -58,5 +58,6 @@ public class GestionEtudiantEJB implements IGestionEtudiantEJBRemote{
    public Etudiant getEtudiantNomPrenom(String nom, String prenom) {
 	   return dao.getEtudiantNomPrenom(nom, prenom);
    }
+  
  
 }

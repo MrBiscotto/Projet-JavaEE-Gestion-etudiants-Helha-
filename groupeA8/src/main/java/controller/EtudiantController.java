@@ -194,6 +194,8 @@ public class EtudiantController implements Serializable {
 	        	gestionEtudiant.deleteEtudiant(e);
 	        }*/
 	        gestionEtudiant.deleteAll();
+	        //gestionNote.deleteAllNote();
+	        //gestionTuto.deleteAllTutorat();
 	        etudiants.clear();
 	        
 	        try {

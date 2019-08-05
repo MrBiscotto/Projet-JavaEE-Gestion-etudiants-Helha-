@@ -136,5 +136,9 @@ public class TutoratController implements Serializable{
 	   return gestionTutorat.getListCoursTuto(section);
    }
    
+	public List<Tutorat> getListTutoEtu(int idEtu){
+		return gestionTutorat.getTutoratEtudiant(idEtu);
+	}
+   
 
 }

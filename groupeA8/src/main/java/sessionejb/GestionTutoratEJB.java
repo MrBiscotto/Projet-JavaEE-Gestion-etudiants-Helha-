@@ -76,5 +76,13 @@ public class GestionTutoratEJB implements IGestionTutoratEJBRemote{
         public List<Object[]> getStatsCours(String idSec){
         	return dao.getStatsCours(idSec);
         }
+        
+        public List<Tutorat> getTutoratEtudiant(int idEtu){
+        	return dao.getTutoratEtudiant(idEtu);
+        }
+        
+	    public void deleteAllTutorat() {
+	    	dao.deleteAllTutorat();
+	    }
 
 }

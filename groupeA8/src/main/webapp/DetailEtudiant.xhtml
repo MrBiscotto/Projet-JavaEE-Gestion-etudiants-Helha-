@@ -11,7 +11,7 @@
 	<link rel="shortcut icon" href="images/detail.png"/>
 </h:head>
 
-<h:body>
+<h:body style="background-image: url(images/back3.jpg);">
 	<ui:include src="include/menu.xhtml" />
 
 	<div class="container" 
@@ -19,6 +19,7 @@
 		<b:jumbotron>
 			<h1>#{etudiantController.etudiant.nom}
 				#{etudiantController.etudiant.prenom}</h1>
+					
 			<h:form>
 				<div class="form-group">
 					<h:outputLabel>Nom : #{etudiantController.etudiant.nom}</h:outputLabel>
@@ -43,7 +44,7 @@
 				</div>
 
 				<div class="form-group">
-					Séminaires
+					<u><b>Liste des séminaires</b></u>
 					(#{seminaireController.getCountId(etudiantController.etudiant.id)}
 					/
 					#{seminaireController.getCountSeminaire(etudiantController.etudiant.section)})
@@ -54,6 +55,18 @@
 						<div>#{seminaire.nomSeminaire} (#{seminaire.date})</div>
 					</ui:repeat>
 				</div>
+				
+				<div class="form-group">
+					<u><b>Liste des demandes de tutorat</b></u>
+
+					<ui:repeat
+						value="#{tutoratController.getListTutoEtu(etudiantController.etudiant.id)}"
+						var="tuto">
+						<div>- #{tuto.nom}</div>
+					</ui:repeat>
+				</div>
+
+			<p>#{remediationController.listRemeEtu(etudiantController.etudiant.id)}</p>
 				
 	
 		<b:dataTable value="#{etudiantController.getListNoteEtudiants()}"

@@ -63,6 +63,11 @@ public class DAOTutorat {
 			 query.setParameter("id", idCours);
 			 return (List<Integer>) query.getResultList();
 	    }
+	    
+	    public void deleteAllTutorat() {
+            Query query = em.createQuery("delete from Tutorat c where c.id >=0");
+            query.executeUpdate();
+	    }
 
         public void deleteTutorat(Tutorat p)
         {
@@ -105,6 +110,12 @@ public class DAOTutorat {
         public List<Object[]> getStatsCours(String idSec){
 		   	 Query query = em.createQuery("select distinct(u.nom),count(u.nom) from Tutorat u where u.section = :idSec group by u.nom");
 		   	query.setParameter("idSec", idSec);
+		   	return query.getResultList();
+        }
+        
+        public List<Tutorat> getTutoratEtudiant(int idEtu){
+		   	 Query query = em.createQuery("select u from Tutorat u where u.etuId = :id ORDER BY u.nom");
+		   	query.setParameter("id", idEtu);
 		   	return query.getResultList();
         }
         

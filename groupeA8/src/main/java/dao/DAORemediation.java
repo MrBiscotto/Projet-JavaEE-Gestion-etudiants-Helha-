@@ -49,6 +49,12 @@ public class DAORemediation {
         query.executeUpdate();
     }
     
+    public List<Object[]> getListRemeEtu(int idEtu){
+    	Query query= em.createQuery("SELECT t.nom,r.date FROM Remediation r INNER JOIN Tutorat t on t.id = r.tutoId WHERE t.etuId = :id ORDER BY t.nom");
+    	query.setParameter("id", idEtu);
+        return query.getResultList();
+    }
+    
     public void close()
     {
         em.clear();

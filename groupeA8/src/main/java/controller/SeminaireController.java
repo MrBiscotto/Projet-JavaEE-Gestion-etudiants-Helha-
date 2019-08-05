@@ -34,7 +34,7 @@ public class SeminaireController implements Serializable{
 	 * 
 	 */
 	private boolean visibleAdd = true;
-	private boolean visibleDelete = false;
+	private boolean visibleDelete = true;
 	private static final long serialVersionUID = 1L;
 	@EJB
     private GestionSeminaireEJB gestionSeminaire;
@@ -88,9 +88,10 @@ public class SeminaireController implements Serializable{
         return seminaires;
     }
 	
-    public void deleteSeminaire(Seminaire seminaire) {
+    public String deleteSeminaire(Seminaire seminaire) {
         gestionSeminaire.deleteSemi(seminaire);;
         seminaires = gestionSeminaire.selectAll();
+        return "ListeSeminaire.xhtml?face-redirect=true";
     }
     
     public String addSeminaire() throws ParseException {
@@ -174,5 +175,6 @@ public class SeminaireController implements Serializable{
 		init();
 		seminaire.setNomSeminaire("");
 	}
+	
 
 }
