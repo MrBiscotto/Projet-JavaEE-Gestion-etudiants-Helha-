@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -305,6 +306,53 @@ public class EtudiantController implements Serializable {
    
    public void getIdNote(NoteEtudiant n) {
 	   note.setId(n.getId());
+   }
+   
+   private Part image;
+   private boolean upladed;
+   
+   
+   public void imageUpload(){
+       try{
+           InputStream in=image.getInputStream();
+           
+           File f=new File(image.getSubmittedFileName());
+           f.createNewFile();
+           FileOutputStream out=new FileOutputStream(f);
+           
+           byte[] buffer=new byte[1024];
+           int length;
+           
+           while((length=in.read(buffer))>0){
+               out.write(buffer, 0, length);
+           }
+           
+           out.close();
+           in.close();
+           
+           FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("path", f.getAbsolutePath());
+           upladed=true;
+           
+       }catch(Exception e){
+           e.printStackTrace(System.out);
+       }
+   
+   }
+
+   public Part getImage() {
+       return image;
+   }
+
+   public void setImage(Part image) {
+       this.image = image;
+   }
+
+   public boolean isUpladed() {
+       return upladed;
+   }
+
+   public void setUpladed(boolean upladed) {
+       this.upladed = upladed;
    }
 
 

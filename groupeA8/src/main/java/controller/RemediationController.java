@@ -12,11 +12,9 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
-import entities.Cours;
 import entities.Remediation;
 import entities.Tutorat;
 import sessionejb.GestionRemediationEJB;
-import sessionejb.GestionTutoratEJB;
 
 @Named
 @SessionScoped
@@ -112,41 +110,50 @@ public class RemediationController implements Serializable{
 			return tmp;
 			
 		}
-	
-		   public String listRemeEtu(int idEtu) {
-			   List<String> returnList = new ArrayList<String>();
-			   String[] tab = null;
+		
+		public String listRemeEtu(int idEtu) {
+			   String[] tab = new String[30];
 			   List<Object[]> tmpList = new ArrayList<Object[]>();
 			   tmpList = gestionRemediation.getListRemeEtu(idEtu);
 
 			   int i = 0;
 			   int pos=0;
+			   int chariot = 0;
 			   String add = "";
 			   String nomTmp="";
 			   String nomIf="";
 			   
-			   for(Object[] tmp : tmpList) {	   		 
-				   
-				   nomTmp =  String.valueOf(tmp[0]);
+			   for(Object[] tmp : tmpList) {
+				   nomTmp = String.valueOf(tmp[0]);
 				   
 				   if(nomIf.equals(nomTmp)) {
 					   
+					   if(chariot == 2) {
+						   add += "\n";
+						   chariot = 0;
+					   }
+					   
 					   add += " - [" + String.valueOf(tmp[1]) + "]";
 					   pos= pos + 1;
-					   //tab[i- pos] = add;
+					   tab[i- pos] = add;
+					   
+					   chariot++;
+					  
 					   
 				   }else {
-					   //add="";
+					   
+					   if(i !=0) {
+						   add += "\n";
+					   }
+					   
 					   add += String.valueOf(tmp[0]) + " [" + String.valueOf(tmp[1]) + "]";
 					   tab[i] = add;
 					   nomIf = String.valueOf(tmp[0]);
-					   
 				   }
 				   
-				   i++;	   
+				   i++;
 			   }
-			   
-			   
+	   
 			   return add;
 		   }
 		

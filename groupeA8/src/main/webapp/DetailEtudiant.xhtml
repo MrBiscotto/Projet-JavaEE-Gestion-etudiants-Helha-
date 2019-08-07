@@ -9,17 +9,37 @@
 	<title>Détails Etudiant</title>
 	
 	<link rel="shortcut icon" href="images/detail.png"/>
+	
+	<script>
+	$(document).ready(function() {
+		$("#image").click(function () {
+			console.log('ah');
+		    $("#test\\:input").trigger('click');
+		});
+	});
+	</script>
+	
 </h:head>
 
 <h:body style="background-image: url(images/back3.jpg);">
 	<ui:include src="include/menu.xhtml" />
 
 	<div class="container" 
-		style="margin-top:33%; margin-left:50%; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+		style="margin-top:43%; margin-left:50%; top: 50%; left: 50%; transform: translate(-50%, -50%);">
 		<b:jumbotron>
 			<h1>#{etudiantController.etudiant.nom}
 				#{etudiantController.etudiant.prenom}</h1>
-					
+				
+
+	        <img id="image" style="cursor:pointer" src="images/photo.png"></img>
+            
+            <h:form id="test" enctype="multipart/form-data">
+				<h:inputFile id="input" style="display:none">
+					<f:passThroughAttribute name="accept" value="image/png"/>
+					<f:ajax event="change" listener="#{etudiantController.imageUpload()}" execute="@form" render="@form"/>
+				</h:inputFile>
+			</h:form>
+ 
 			<h:form>
 				<div class="form-group">
 					<h:outputLabel>Nom : #{etudiantController.etudiant.nom}</h:outputLabel>
@@ -66,8 +86,10 @@
 					</ui:repeat>
 				</div>
 
-			<p>#{remediationController.listRemeEtu(etudiantController.etudiant.id)}</p>
-				
+		<div class="form-group">
+			<u><b>Liste des rémédiations</b></u>		
+			<pre><p style="font-size:14px"> #{remediationController.listRemeEtu(etudiantController.etudiant.id)}</p></pre>
+		</div>		
 	
 		<b:dataTable value="#{etudiantController.getListNoteEtudiants()}"
 		               var="note" searching="false">
@@ -121,8 +143,5 @@
   </b:modal>
 </h:form>
 
-
-	
-	
 </h:body>
 </html>
