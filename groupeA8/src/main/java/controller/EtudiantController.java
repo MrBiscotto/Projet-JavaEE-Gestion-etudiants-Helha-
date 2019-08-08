@@ -1,11 +1,17 @@
 package controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,9 +26,11 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
+import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
 
 import org.apache.poi.EncryptedDocumentException;
+import org.primefaces.shaded.commons.io.FilenameUtils;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
@@ -310,36 +318,28 @@ public class EtudiantController implements Serializable {
    
    private Part image;
    private boolean upladed;
-   private String path ="images/photo.png";
+   private String path ="images/photo2.png";
    
    
    public void imageUpload(){
-       try{
-           InputStream in=image.getInputStream();
-           
-           File f=new File(image.getSubmittedFileName());
-           f.createNewFile();
-           FileOutputStream out=new FileOutputStream(f);
-           
-           byte[] buffer=new byte[1024];
-           int length;
-           
-           while((length=in.read(buffer))>0){
-               out.write(buffer, 0, length);
-           }
-           
-           out.close();
-           in.close();
-           
-           //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("path", f.getAbsolutePath());
-           path = "images/photo2.png";
-           upladed=true;
-           
-       }catch(Exception e){
-           e.printStackTrace(System.out);
-           
-       }
-      
+       
+	    try (InputStream input = image.getInputStream()) {
+	    	String format = image.getSubmittedFileName();
+	    	
+	    	ServletContext ctx = (ServletContext) FacesContext.getCurrentInstance()
+	                .getExternalContext().getContext();
+		    String realPath = ctx.getRealPath("/");
+		    
+		     String relativePath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
+		    
+	    	String[] split = format.split("\\.");
+	        Files.copy(input, new File(realPath + "/photoProfil", etudiant.getId() + "." + split[1]).toPath(),StandardCopyOption.REPLACE_EXISTING);
+
+	       	path = "/photoProfil/" +  etudiant.getId() + "." + split[1];
+	    }
+	    catch (IOException e) {
+	        // Show faces message?
+	    }
    }
    
    public String getPath() {

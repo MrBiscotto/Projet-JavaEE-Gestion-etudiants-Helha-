@@ -2,7 +2,7 @@
 #test\:image{
 	float: right;
 	transition: 1s;
-border-radius: 100px;
+border-radius: 120px;
 	cursor:pointer; 
 	width:200px;
 	height:200px;
@@ -10,6 +10,8 @@ border-radius: 100px;
 }
 
 #test\:image:hover{
+	border: 3px solid;
+	box-shadow: 0 0 25px 8px rgba(86, 80, 250, 0.5);
 	transition: 1s;
 	width:240px;
 	height:240px;
