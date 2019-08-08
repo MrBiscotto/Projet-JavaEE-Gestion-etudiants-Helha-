@@ -39,6 +39,6 @@
 	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="C:/Users/flori/Documents/payara5/glassfish/lib/gf-client.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/flori/Documents/payara5/glassfish/lib/mysql-connector-java-5.1.47.jar"/>
-	<classpathentry kind="lib" path="C:/Users/flori/Desktop/HelHa_3IG/JAVE_EE/PROJET_VACANCES/bootsfaces/BootsFaces-OSP-1.4.1-dist-default.jar"/>
+	<classpathentry kind="lib" path="C:/Users/flori/git/repository/groupeA8/src/main/webapp/WEB-INF/lib/BootsFaces-OSP-1.4.1-dist-default.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

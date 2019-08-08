@@ -73,7 +73,9 @@
 			<h:form enctype="multipart/form-data">
 				<h:inputFile value="#{etudiantController.file}" id="file"
 					styleClass="btn btn-primary" style="width:30%" required="true" 
-					requiredMessage="Veuillez sélectionner un fichier" />
+					requiredMessage="Veuillez sélectionner un fichier" >
+					<f:passThroughAttribute name="accept" value=".xlsx"/>
+				</h:inputFile>
 						<b:messages for="file" />
 					<hr/>			
 

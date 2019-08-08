@@ -310,6 +310,7 @@ public class EtudiantController implements Serializable {
    
    private Part image;
    private boolean upladed;
+   private String path ="images/photo.png";
    
    
    public void imageUpload(){
@@ -330,13 +331,23 @@ public class EtudiantController implements Serializable {
            out.close();
            in.close();
            
-           FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("path", f.getAbsolutePath());
+           //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("path", f.getAbsolutePath());
+           path = "images/photo2.png";
            upladed=true;
            
        }catch(Exception e){
            e.printStackTrace(System.out);
+           
        }
+      
+   }
    
+   public String getPath() {
+	   return path;
+   }
+   
+   public void setPath(String p) {
+	   this.path = p;
    }
 
    public Part getImage() {

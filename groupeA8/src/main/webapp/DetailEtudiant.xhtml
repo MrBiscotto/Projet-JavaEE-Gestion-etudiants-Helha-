@@ -9,10 +9,11 @@
 	<title>Détails Etudiant</title>
 	
 	<link rel="shortcut icon" href="images/detail.png"/>
+	<link rel="stylesheet" href="css/detailEtudiant.css" />
 	
 	<script>
 	$(document).ready(function() {
-		$("#image").click(function () {
+		$("#test\\:image").click(function () {
 			console.log('ah');
 		    $("#test\\:input").trigger('click');
 		});
@@ -30,15 +31,16 @@
 			<h1>#{etudiantController.etudiant.nom}
 				#{etudiantController.etudiant.prenom}</h1>
 				
-
-	        <img id="image" style="cursor:pointer" src="images/photo.png"></img>
             
             <h:form id="test" enctype="multipart/form-data">
-				<h:inputFile id="input" style="display:none">
-					<f:passThroughAttribute name="accept" value="image/png"/>
+				<h:inputFile id="input" style="display:none" value="#{etudiantController.image}">
+					<f:passThroughAttribute name="accept" value="image/*"/>
 					<f:ajax event="change" listener="#{etudiantController.imageUpload()}" execute="@form" render="@form"/>
 				</h:inputFile>
+				 <h:graphicImage id="image" value="#{etudiantController.path}" />
 			</h:form>
+			
+			<hr></hr>
  
 			<h:form>
 				<div class="form-group">
