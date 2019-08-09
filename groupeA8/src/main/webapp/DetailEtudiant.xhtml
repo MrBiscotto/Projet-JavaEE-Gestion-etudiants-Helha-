@@ -25,7 +25,9 @@
 	
 	function onChangeFile() {
 	    setTimeout(function(){
-	    	 $("#test\\:reload").trigger('click');
+	    	console.log('cmd');
+	    	location.reload();
+	    	 //$("#test\\:reload").trigger('click');
 	    },500);
 	}
 	</script>
