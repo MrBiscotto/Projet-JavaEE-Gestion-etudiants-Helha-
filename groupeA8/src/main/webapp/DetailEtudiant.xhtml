@@ -3,13 +3,18 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui">
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta charset="UTF-8" />
 	<title>Détails Etudiant</title>
 	
 	<link rel="shortcut icon" href="images/detail.png"/>
 	<link rel="stylesheet" href="css/detailEtudiant.css" />
+	
+	<f:metadata>
+    	<f:viewAction action="#{etudiantController.verifyProfilPicture()}" />
+	</f:metadata>
 	
 	<script>
 	$(document).ready(function() {
@@ -26,7 +31,7 @@
 	<ui:include src="include/menu.xhtml" />
 
 	<div class="container" 
-		style="margin-top:43%; margin-left:50%; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+		style="margin-top:45%; margin-left:50%; top: 50%; left: 50%; transform: translate(-50%, -50%);">
 		<b:jumbotron>
 			<h1>#{etudiantController.etudiant.nom}
 				#{etudiantController.etudiant.prenom}</h1>
@@ -34,10 +39,12 @@
             
             <h:form id="test" enctype="multipart/form-data">
 				<h:inputFile id="input" style="display:none" value="#{etudiantController.image}">
-					<f:passThroughAttribute name="accept" value="image/*"/>
+					<f:passThroughAttribute name="accept" value="image/png"/>
 					<f:ajax event="change" listener="#{etudiantController.imageUpload()}" execute="@form" render="@form"/>
 				</h:inputFile>
 				 <h:graphicImage id="image" value="#{etudiantController.path}" />
+				     <p:tooltip id="toolTipGrow" for="image" value="Taille recommandée 240px sur 240px"
+               			showEffect="clip" hideEffect="explode" position="left" trackMouse="true"/>
 			</h:form>
 			
 			<hr></hr>

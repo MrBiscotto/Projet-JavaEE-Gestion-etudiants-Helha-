@@ -169,8 +169,8 @@ public class UtilisateurController implements Serializable {
 		}
 		
 		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Accès réservé aux Admin !", null));
-		return null;
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Accès réservé aux Administrateurs !", null));
+		return "index.xhtml?faces-redirect=true";
 		
 	}
 	

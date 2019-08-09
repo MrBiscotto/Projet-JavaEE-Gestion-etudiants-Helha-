@@ -50,6 +50,9 @@ public class EtudiantController implements Serializable {
 	 /**
 	 * 
 	 */
+	   
+    private Part image;
+    private String path ="images/photo2.png";
 	private int tmpId = 0;
 	private boolean loadFile = false;
 	private String comboSection = null;
@@ -170,7 +173,7 @@ public class EtudiantController implements Serializable {
 
 	   if(gestionEtudiant.getEtudiantNomPrenom(nP[0], nP[1]).getId() != null) {
 	   
-		   etudiant = gestionEtudiant.getEtudiantNomPrenom(nP[0], nP[1]);  
+		   etudiant = gestionEtudiant.getEtudiantNomPrenom(nP[0], nP[1]);
 	   		return "DetailEtudiant.xhtml?faces-redirect=true";
 	   }
 	   
@@ -181,6 +184,22 @@ public class EtudiantController implements Serializable {
 	public String navDetailsEtudiant(Etudiant e){
 		etudiant = e;
 		return "DetailEtudiant.xhtml?faces-redirect=true";
+	}
+	
+	public void verifyProfilPicture() {
+    	ServletContext ctx = (ServletContext) FacesContext.getCurrentInstance()
+                .getExternalContext().getContext();
+	    String realPath = ctx.getRealPath("/");
+	    
+	    File f = new File(realPath + "/photoProfil/" +  etudiant.getId() + ".png");
+	    
+		if(f.exists()  && !f.isDirectory())
+		{
+			path = "/photoProfil/" +  etudiant.getId() + ".png";
+		}else {
+			path = "images/photo2.png";
+		}
+		
 	}
 	   
 	public String save() throws InvalidFormatException, EncryptedDocumentException, org.apache.poi.openxml4j.exceptions.InvalidFormatException, IOException {
@@ -220,6 +239,7 @@ public class EtudiantController implements Serializable {
 	        	loadFile = false;
 	        }
 	        
+	        messageLoadFile();
 	        return "index.xhtml?faces-redirect=true";
 	}
 	
@@ -315,12 +335,7 @@ public class EtudiantController implements Serializable {
    public void getIdNote(NoteEtudiant n) {
 	   note.setId(n.getId());
    }
-   
-   private Part image;
-   private boolean upladed;
-   private String path ="images/photo2.png";
-   
-   
+
    public void imageUpload(){
        
 	    try (InputStream input = image.getInputStream()) {
@@ -330,12 +345,12 @@ public class EtudiantController implements Serializable {
 	                .getExternalContext().getContext();
 		    String realPath = ctx.getRealPath("/");
 		    
-		     String relativePath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
+		     //String relativePath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
 		    
 	    	String[] split = format.split("\\.");
-	        Files.copy(input, new File(realPath + "/photoProfil", etudiant.getId() + "." + split[1]).toPath(),StandardCopyOption.REPLACE_EXISTING);
+	        Files.copy(input, new File(realPath + "/photoProfil", etudiant.getId() + "." + split[1].toLowerCase()).toPath(),StandardCopyOption.REPLACE_EXISTING);
 
-	       	path = "/photoProfil/" +  etudiant.getId() + "." + split[1];
+	       	path = "/photoProfil/" +  etudiant.getId() + "." + split[1].toLowerCase();
 	    }
 	    catch (IOException e) {
 	        // Show faces message?
@@ -357,14 +372,5 @@ public class EtudiantController implements Serializable {
    public void setImage(Part image) {
        this.image = image;
    }
-
-   public boolean isUpladed() {
-       return upladed;
-   }
-
-   public void setUpladed(boolean upladed) {
-       this.upladed = upladed;
-   }
-
 
 }
