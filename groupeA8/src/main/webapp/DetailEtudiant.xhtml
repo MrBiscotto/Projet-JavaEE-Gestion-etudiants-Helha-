@@ -19,10 +19,15 @@
 	<script>
 	$(document).ready(function() {
 		$("#test\\:image").click(function () {
-			console.log('ah');
 		    $("#test\\:input").trigger('click');
 		});
 	});
+	
+	function onChangeFile() {
+	    setTimeout(function(){
+	    	 $("#test\\:reload").trigger('click');
+	    },500);
+	}
 	</script>
 	
 </h:head>
@@ -38,13 +43,17 @@
 				
             
             <h:form id="test" enctype="multipart/form-data">
-				<h:inputFile id="input" style="display:none" value="#{etudiantController.image}">
+            
+				<h:inputFile id="input"  style="display:none" value="#{etudiantController.image}"  onchange="onChangeFile()">
 					<f:passThroughAttribute name="accept" value="image/png"/>
 					<f:ajax event="change" listener="#{etudiantController.imageUpload()}" execute="@form" render="@form"/>
 				</h:inputFile>
+				
 				 <h:graphicImage id="image" value="#{etudiantController.path}" />
 				     <p:tooltip id="toolTipGrow" for="image" value="Taille recommandée 240px sur 240px"
                			showEffect="clip" hideEffect="explode" position="left" trackMouse="true"/>
+               			
+               			<b:commandButton id="reload" style="display:none;"/>
 			</h:form>
 			
 			<hr></hr>
