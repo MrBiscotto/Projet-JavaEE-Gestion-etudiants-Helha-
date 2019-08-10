@@ -29,6 +29,7 @@ import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
 
+import org.apache.derby.authentication.UserAuthenticator;
 import org.apache.poi.EncryptedDocumentException;
 import org.primefaces.shaded.commons.io.FilenameUtils;
 
@@ -279,6 +280,10 @@ public class EtudiantController implements Serializable {
 			SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy 'à' HH:mm:ss");
 			Date date = new Date(System.currentTimeMillis());
 			note.setDate(formatter.format(date));
+			
+			UtilisateurController user = new UtilisateurController();
+			String res = user.getNomPerm();
+			note.setUtilisateur(res);
 			gestionNote.addNote(note);
 			note.setTexte(null);
 			return "DetailEtudiant.xhtml?faces-redirect=true";
@@ -323,9 +328,11 @@ public class EtudiantController implements Serializable {
   //Ajouter étudiant
    
    public void modifierNote() {
+	   UtilisateurController user = new UtilisateurController();
+	   String utiPerm = user.getNomPerm();
+	   note.setUtilisateur(utiPerm);
 	   gestionNote.updateNote(this.note);
 	   note.setTexte(null);
-	   //return "DetailEtudiant.xhtml?faces-redirect=true";
    }
    
    public void setTmpId(int id) {

@@ -108,7 +108,7 @@
 
 		<div class="form-group">
 			<u><b>Liste des rémédiations</b></u>		
-			<pre><p style="font-size:14px"> #{remediationController.listRemeEtu(etudiantController.etudiant.id)}</p></pre>
+			<pre><p style="font-size:14px">#{remediationController.listRemeEtu(etudiantController.etudiant.id)}</p></pre>
 		</div>		
 	
 		<b:dataTable value="#{etudiantController.getListNoteEtudiants()}"
@@ -116,6 +116,7 @@
 		    <b:dataTableColumn value="#{note.id}" />
 		    <b:dataTableColumn value="#{note.texte}"/>
 		    <b:dataTableColumn label="Date d'ajout" value="#{note.date}"/>
+		    <b:dataTableColumn label="Utilisateur (permission)" value="#{note.utilisateur}"/>
 		    <b:dataTableColumn label="Modifier note">
 				<b:commandButton value="Modifier"  iconAwesome="edit" onclick="$('.modalDialog').modal()" action="#{etudiantController.setNoteEtudiant(note)}">
 					<f:ajax execute="@form" render="@none" />

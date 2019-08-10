@@ -19,15 +19,25 @@ public class NoteEtudiant implements Serializable{
     private String texte;
     private String date;
     private int etuId;
+    private String utilisateur;
     
     public NoteEtudiant() {}
     
-    public NoteEtudiant(String texte, int etuId,String date) {
+    public NoteEtudiant(String texte, int etuId,String date,String uti) {
     	super();
     	this.texte = texte;
     	this.etuId = etuId;
     	this.date = date;
+    	this.utilisateur = uti;
     }
+
+	public String getUtilisateur() {
+		return utilisateur;
+	}
+
+	public void setUtilisateur(String utilisateur) {
+		this.utilisateur = utilisateur;
+	}
 
 	public String getDate() {
 		return date;

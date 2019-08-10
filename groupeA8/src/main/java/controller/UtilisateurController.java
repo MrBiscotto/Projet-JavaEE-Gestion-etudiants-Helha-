@@ -27,6 +27,7 @@ public class UtilisateurController implements Serializable {
 	 * 
 	 */
 	private static String perm = "what";
+	private static String nom = "";
 	private static boolean login = false;
 	private static final long serialVersionUID = 1L;
 	@EJB
@@ -34,15 +35,18 @@ public class UtilisateurController implements Serializable {
 	private List<Utilisateur> utilisateurs;
 	private Utilisateur utilisateur;
 
-	public UtilisateurController() {
-
-	}
+	public UtilisateurController() {}
 
 	@PostConstruct
 	public void init() {
 		utilisateur = new Utilisateur();
 		utilisateurs = new ArrayList<>();
 
+	}
+	
+	public String getNomPerm() {
+		String res = this.nom + " (" + this.perm + ")";
+		return res;
 	}
 
 	public Utilisateur getUtilisateur() {
@@ -89,6 +93,7 @@ public class UtilisateurController implements Serializable {
 				context.getExternalContext().getFlash().setKeepMessages(true);
 				login = true;
 				perm = utilisateur.getPermission();
+				nom = utilisateur.getNom();
 				return "index.xhtml?faces-redirect=true";
 			}
 	        
